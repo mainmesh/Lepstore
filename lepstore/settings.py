@@ -161,7 +161,8 @@ if not DEBUG:
 
 # Login URLs
 LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'store:home'
+# After staff login via the admin, redirect to the custom admin dashboard
+LOGIN_REDIRECT_URL = 'admin_dashboard'
 LOGOUT_REDIRECT_URL = 'store:home'
 
 # Optional S3 / django-storages configuration

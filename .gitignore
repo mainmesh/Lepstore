@@ -36,3 +36,5 @@ local_settings.py
 *.swp
 *.swo
 *~
+.vercel
+.env*.local
