@@ -6,9 +6,6 @@ from django.utils import timezone
 from cart.cart import Cart
 from .models import Order, OrderItem, ShippingMethod
 from .forms import OrderCreateForm
-import stripe
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def checkout(request):
@@ -85,40 +82,16 @@ def checkout(request):
         'cart': cart,
         'form': form,
         'shipping_methods': shipping_methods,
-        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
     }
     return render(request, 'orders/checkout.html', context)
 
 
 def payment(request, order_id):
-    """Stripe payment page"""
+    """Card payments are disabled — redirect to order completion."""
     order = get_object_or_404(Order, id=order_id)
-    
-    if request.method == 'POST':
-        try:
-            # Create Stripe PaymentIntent
-            intent = stripe.PaymentIntent.create(
-                amount=int(order.total * 100),  # Amount in cents
-                currency='usd',
-                metadata={'order_id': order.id}
-            )
-            
-            context = {
-                'order': order,
-                'client_secret': intent.client_secret,
-                'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-            }
-            return render(request, 'orders/payment.html', context)
-        
-        except Exception as e:
-            messages.error(request, f'Payment error: {str(e)}')
-            return redirect('orders:checkout')
-    
-    context = {
-        'order': order,
-        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-    }
-    return render(request, 'orders/payment.html', context)
+
+    messages.info(request, 'Card payments are currently disabled. Your order is being processed.')
+    return redirect('orders:order_complete', order_id=order.id)
 
 
 def payment_success(request, order_id):

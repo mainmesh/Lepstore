@@ -19,8 +19,6 @@ Create a `.env` file in the project root:
 SECRET_KEY=your-secret-key-here
 DEBUG=True
 DATABASE_URL=
-STRIPE_PUBLIC_KEY=pk_test_your_key
-STRIPE_SECRET_KEY=sk_test_your_key
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
@@ -227,27 +225,6 @@ Run it:
 ```powershell
 python populate_db.py
 ```
-
----
-
-## Stripe Payment Setup
-
-### 1. Create Stripe Account
-1. Go to https://stripe.com
-2. Sign up for account
-3. Complete verification
-
-### 2. Get API Keys
-1. Dashboard → Developers → API Keys
-2. Copy "Publishable key" (pk_test_...)
-3. Copy "Secret key" (sk_test_...)
-4. Add to .env file
-
-### 3. Test Cards (Development)
-- Success: 4242 4242 4242 4242
-- Declined: 4000 0000 0000 0002
-- Use any future date for expiry
-- Use any 3 digits for CVC
 
 ---
 

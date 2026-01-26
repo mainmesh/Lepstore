@@ -8,7 +8,7 @@ Follow these steps to deploy the Django project to Vercel.
    - `SECRET_KEY` (your Django secret key)
    - `DATABASE_URL` (Postgres URL)
    - Any AWS/S3 credentials if using `django-storages` (`USE_S3`, `STATICFILES_ON_S3`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_STORAGE_BUCKET_NAME`, `AWS_S3_REGION_NAME`)
-   - Any payment or third-party keys (e.g., `STRIPE_SECRET_KEY`)
+   - Any payment or third-party keys your deployment needs (e.g., API keys)
 
 2. Build behavior
    - Vercel will run the `vercel-build` script defined in `package.json`, which builds Tailwind CSS and runs `python manage.py collectstatic --noinput`.

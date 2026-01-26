@@ -18,7 +18,6 @@ Maximum Tech, Minimal Price, Delivered Fast.
 - Django 5.0
 - PostgreSQL
 - Tailwind CSS
-- Stripe Payment Gateway
 - Deployed on Render
 
 ## Local Development Setup
@@ -91,8 +90,6 @@ Create a `.env` file with:
 SECRET_KEY=your-secret-key
 DEBUG=True
 DATABASE_URL=your-database-url
-STRIPE_PUBLIC_KEY=your-stripe-public-key
-STRIPE_SECRET_KEY=your-stripe-secret-key
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
