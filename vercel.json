@@ -1,44 +1,11 @@
 {
   "version": 2,
   "builds": [
-    { "src": "manage.py", "use": "@vercel/python" },
-    { "src": "src/input.css", "use": "@vercel/static-build", "config": { "distDir": "static" } }
+    { "src": "api/wsgi.py", "use": "@vercel/python" }
   ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
     { "src": "/media/(.*)", "dest": "/media/$1", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
-    { "src": "/(.*)", "dest": "/manage.py" }
+    { "src": "/(.*)", "dest": "/api/wsgi.py" }
   ]
 }
-# Vercel Python + Django deployment configuration
-
-# Vercel uses this file to detect and build a Django app
-[build]
-builder = "@vercel/python"
-
-[build.env]
-# Set environment variables here or in Vercel dashboard
-DJANGO_SETTINGS_MODULE = "lepstore.settings"
-PYTHON_VERSION = "3.10"
-
-[builds]
-# Specify the entrypoint for Django
-src = "manage.py"
-use = "@vercel/python"
-
-[routes]
-# API and static/media routing
-# Django app (all non-static requests)
-  src = "/(.*)"
-  dest = "/manage.py"
-  methods = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-
-# Serve static files
-  src = "/static/(.*)"
-  dest = "/static/$1"
-  headers = { "Cache-Control": "public, max-age=31536000, immutable" }
-
-# Serve media files
-  src = "/media/(.*)"
-  dest = "/media/$1"
-  headers = { "Cache-Control": "public, max-age=31536000, immutable" }
