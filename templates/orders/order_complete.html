@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Complete - Lepstore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+    <div class="max-w-2xl mx-auto text-center">
+        <div class="bg-green-500 rounded-full h-24 w-24 flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-check text-white text-5xl"></i>
+        </div>
+        
+        <h1 class="text-4xl font-bold mb-4">Order Placed Successfully!</h1>
+        <p class="text-xl text-gray-600 mb-8">Thank you for your purchase</p>
+        
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="mb-6">
+                <p class="text-gray-600 mb-2">Order Number</p>
+                <p class="text-3xl font-bold text-blue-600">{{ order.order_number }}</p>
+            </div>
+            
+            <div class="border-t pt-6">
+                <p class="text-gray-600 mb-4">A confirmation email has been sent to:</p>
+                <p class="font-semibold text-lg">{{ order.email }}</p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gray-50 rounded-lg p-6">
+                <i class="fas fa-shipping-fast text-4xl text-blue-600 mb-3"></i>
+                <p class="font-semibold">Fast Delivery</p>
+                <p class="text-sm text-gray-600">Within 2-3 business days</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <i class="fas fa-envelope text-4xl text-blue-600 mb-3"></i>
+                <p class="font-semibold">Order Updates</p>
+                <p class="text-sm text-gray-600">Track your order via email</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <i class="fas fa-headset text-4xl text-blue-600 mb-3"></i>
+                <p class="font-semibold">24/7 Support</p>
+                <p class="text-sm text-gray-600">We're here to help</p>
+            </div>
+        </div>
+        
+        <div class="flex justify-center space-x-4">
+            {% if user.is_authenticated %}
+            <a href="{% url 'orders:order_history' %}" class="btn-primary">
+                View Order History
+            </a>
+            {% endif %}
+            <a href="{% url 'store:home' %}" class="btn-secondary">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

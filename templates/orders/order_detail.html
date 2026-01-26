@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Order #{{ order.order_number }} - Lepstore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <a href="{% url 'orders:order_history' %}" class="text-blue-600 hover:underline mb-4 inline-block">
+            ← Back to Order History
+        </a>
+        
+        <div class="bg-white rounded-lg shadow p-8">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">Order #{{ order.order_number }}</h1>
+                    <p class="text-gray-600">Placed on {{ order.created_at|date:"F d, Y at g:i A" }}</p>
+                </div>
+                <span class="px-4 py-2 rounded-full text-sm font-semibold
+                    {% if order.status == 'delivered' %}bg-green-100 text-green-800
+                    {% elif order.status == 'processing' %}bg-blue-100 text-blue-800
+                    {% elif order.status == 'shipped' %}bg-purple-100 text-purple-800
+                    {% elif order.status == 'cancelled' %}bg-red-100 text-red-800
+                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+            
+            <!-- Order Items -->
+            <div class="border-t border-b py-6 mb-6">
+                <h2 class="text-xl font-bold mb-4">Order Items</h2>
+                {% for item in order.items.all %}
+                <div class="flex items-center mb-4">
+                    {% if item.product and item.product.images.first %}
+                    <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product_name }}" 
+                         class="w-20 h-20 object-cover rounded mr-4">
+                    {% endif %}
+                    <div class="flex-1">
+                        {% if item.product %}
+                        <a href="{% url 'store:product_detail' item.product.slug %}" class="font-semibold hover:text-blue-600">
+                            {{ item.product_name }}
+                        </a>
+                        {% else %}
+                        <p class="font-semibold">{{ item.product_name }}</p>
+                        {% endif %}
+                        <p class="text-sm text-gray-600">Quantity: {{ item.quantity }} × ${{ item.price }}</p>
+                    </div>
+                    <p class="font-bold text-lg">${{ item.subtotal }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Shipping & Payment Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-bold mb-3">Shipping Address</h3>
+                    <p class="text-gray-700">
+                        {{ order.full_name }}<br>
+                        {{ order.address }}<br>
+                        {{ order.city }}, {{ order.postal_code }}<br>
+                        {{ order.country }}
+                    </p>
+                    <p class="text-gray-700 mt-2">
+                        <strong>Phone:</strong> {{ order.phone }}<br>
+                        <strong>Email:</strong> {{ order.email }}
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-3">Payment Information</h3>
+                    <p class="text-gray-700">
+                        <strong>Method:</strong> {{ order.get_payment_method_display }}<br>
+                        <strong>Status:</strong> 
+                        {% if order.is_paid %}
+                        <span class="text-green-600">✓ Paid</span>
+                        {% else %}
+                        <span class="text-orange-600">⚠ Pending</span>
+                        {% endif %}
+                    </p>
+                    {% if order.is_paid %}
+                    <p class="text-sm text-gray-600 mt-2">Paid on {{ order.paid_at|date:"F d, Y" }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="border-t pt-6">
+                <h3 class="font-bold mb-4">Order Summary</h3>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Subtotal</span>
+                        <span class="font-semibold">${{ order.subtotal }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Shipping</span>
+                        <span class="font-semibold">${{ order.shipping_cost }}</span>
+                    </div>
+                    {% if order.tax > 0 %}
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Tax</span>
+                        <span class="font-semibold">${{ order.tax }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="flex justify-between text-xl font-bold border-t pt-4">
+                    <span>Total</span>
+                    <span class="text-blue-600">${{ order.total }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

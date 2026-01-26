@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Banner -->
+<section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <div class="container mx-auto px-4 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h1 class="text-5xl font-bold mb-4">Maximum Tech,<br>Minimal Price</h1>
+                <p class="text-xl mb-6">Premium laptops, tablets, and smartphones delivered fast to your doorstep.</p>
+                <div class="flex space-x-4">
+                    <a href="{% url 'store:product_list' %}" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+                        Shop Now
+                    </a>
+                    <a href="#deals" class="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition">
+                        View Deals
+                    </a>
+                </div>
+                <div class="mt-8 flex space-x-8 text-sm">
+                    <div>
+                        <i class="fas fa-shipping-fast text-2xl mb-2"></i>
+                        <p>Fast Delivery</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-shield-alt text-2xl mb-2"></i>
+                        <p>Authentic Products</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-headset text-2xl mb-2"></i>
+                        <p>24/7 Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <!-- Placeholder for hero image -->
+                <div class="bg-white bg-opacity-20 rounded-lg p-8 backdrop-blur-sm">
+                    <img src="https://via.placeholder.com/500x400/4299e1/ffffff?text=Premium+Tech" alt="Tech Products" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Category Focus -->
+<section class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Shop by Category</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {% for category in categories %}
+        <a href="{% url 'store:category_products' category.slug %}" class="group">
+            <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+                {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300">
+                {% else %}
+                <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-laptop text-6xl text-white"></i>
+                </div>
+                {% endif %}
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-semibold group-hover:text-blue-600">{{ category.name }}</h3>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold">Featured Products</h2>
+            <a href="{% url 'store:product_list' %}" class="text-blue-600 font-semibold hover:underline">View All →</a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in featured_products %}
+            <div class="product-card">
+                <a href="{% url 'store:product_detail' product.slug %}">
+                    <div class="relative">
+                        {% if product.images.first %}
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-64 object-cover">
+                        {% else %}
+                        <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-image text-4xl text-gray-400"></i>
+                        </div>
+                        {% endif %}
+                        {% if product.is_new %}
+                        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</span>
+                        {% endif %}
+                        {% if product.discount_percentage > 0 %}
+                        <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-{{ product.discount_percentage }}%</span>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <p class="text-sm text-gray-500 mb-1">{{ product.brand.name }}</p>
+                        <h3 class="font-semibold text-lg mb-2 line-clamp-2">{{ product.name }}</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= product.average_rating %}
+                                    <i class="fas fa-star"></i>
+                                    {% else %}
+                                    <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="text-sm text-gray-500 ml-2">({{ product.review_count }})</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-blue-600">${{ product.price }}</span>
+                                {% if product.original_price %}
+                                <span class="text-sm text-gray-400 line-through ml-2">${{ product.original_price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mt-3">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Deals Section -->
+{% if sale_products %}
+<section id="deals" class="container mx-auto px-4 py-16">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-red-600">⚡ Hot Deals</h2>
+        <a href="{% url 'store:product_list' %}" class="text-blue-600 font-semibold hover:underline">View All Deals →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in sale_products %}
+        <div class="product-card border-2 border-red-500">
+            <a href="{% url 'store:product_detail' product.slug %}">
+                <div class="relative">
+                    {% if product.images.first %}
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-64 object-cover">
+                    {% else %}
+                    <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-image text-4xl text-gray-400"></i>
+                    </div>
+                    {% endif %}
+                    <span class="absolute top-2 right-2 bg-red-500 text-white text-lg font-bold px-3 py-2 rounded">-{{ product.discount_percentage }}%</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2 line-clamp-2">{{ product.name }}</h3>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-red-600">${{ product.price }}</span>
+                            <span class="text-sm text-gray-400 line-through ml-2">${{ product.original_price }}</span>
+                        </div>
+                        <span class="text-green-600 font-semibold">Save ${{ product.savings }}</span>
+                    </div>
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                            Grab Deal Now
+                        </button>
+                    </form>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Top Rated -->
+{% if top_rated %}
+<section class="bg-white py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">⭐ Top Rated Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for product in top_rated %}
+            <div class="product-card">
+                <a href="{% url 'store:product_detail' product.slug %}">
+                    <div class="relative">
+                        {% if product.images.first %}
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                        {% else %}
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-image text-4xl text-gray-400"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold mb-2 line-clamp-2">{{ product.name }}</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                {% for i in "12345" %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                            </div>
+                            <span class="text-sm text-gray-500 ml-2">({{ product.review_count }} reviews)</span>
+                        </div>
+                        <p class="text-xl font-bold text-blue-600">${{ product.price }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Social Proof / Testimonials -->
+<section class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="mb-4">"Fast delivery and authentic products. Got my MacBook in just 2 days!"</p>
+                <div class="flex items-center">
+                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                        <span class="font-bold">JM</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold">James Mwangi</p>
+                        <p class="text-sm text-gray-400">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="mb-4">"Best prices in Kenya! Customer service is exceptional."</p>
+                <div class="flex items-center">
+                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                        <span class="font-bold">SA</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Sarah Akinyi</p>
+                        <p class="text-sm text-gray-400">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="mb-4">"Genuine products with warranty. Highly recommended!"</p>
+                <div class="flex items-center">
+                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                        <span class="font-bold">DK</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold">David Kiprop</p>
+                        <p class="text-sm text-gray-400">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

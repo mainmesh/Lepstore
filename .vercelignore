@@ -1,0 +1,14 @@
+/.venv
+venv/
+env/
+node_modules/
+.git/
+*.pyc
+__pycache__/
+tests/
+build/
+dist/
+*.log
+coverage/
+*.sqlite3
+/.github/

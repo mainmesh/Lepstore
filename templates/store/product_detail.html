@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - Lepstore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-600 mb-6">
+        <a href="{% url 'store:home' %}" class="hover:text-blue-600">Home</a> /
+        <a href="{% url 'store:category_products' product.category.slug %}" class="hover:text-blue-600">{{ product.category.name }}</a> /
+        <span class="text-gray-900">{{ product.name }}</span>
+    </nav>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Product Images -->
+        <div>
+            <div class="bg-white rounded-lg shadow-lg p-4 mb-4">
+                {% if product.images.first %}
+                <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full rounded-lg" id="mainImage">
+                {% else %}
+                <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-image text-6xl text-gray-400"></i>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Thumbnail Gallery -->
+            {% if product.images.all|length > 1 %}
+            <div class="grid grid-cols-4 gap-2">
+                {% for image in product.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ product.name }}" 
+                     class="w-full h-24 object-cover rounded cursor-pointer border-2 border-gray-200 hover:border-blue-500">
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Product Info -->
+        <div>
+            <h1 class="text-3xl font-bold mb-2">{{ product.name }}</h1>
+            <p class="text-gray-600 mb-4">by {{ product.brand.name }}</p>
+            
+            <!-- Rating -->
+            <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400 text-lg">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= product.average_rating %}
+                        <i class="fas fa-star"></i>
+                        {% else %}
+                        <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <span class="ml-2 text-gray-600">{{ product.average_rating }} ({{ product.review_count }} reviews)</span>
+            </div>
+            
+            <!-- Price -->
+            <div class="mb-6">
+                <div class="flex items-center">
+                    <span class="text-4xl font-bold text-blue-600">${{ product.price }}</span>
+                    {% if product.original_price %}
+                    <span class="text-2xl text-gray-400 line-through ml-4">${{ product.original_price }}</span>
+                    <span class="ml-4 bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">
+                        SAVE {{ product.discount_percentage }}%
+                    </span>
+                    {% endif %}
+                </div>
+                {% if product.savings %}
+                <p class="text-green-600 font-semibold mt-2">You save ${{ product.savings }}</p>
+                {% endif %}
+            </div>
+            
+            <!-- Stock Status -->
+            <div class="mb-6">
+                {% if product.stock > 0 %}
+                    {% if product.stock <= 5 %}
+                    <p class="text-orange-600 font-semibold">⚠️ Only {{ product.stock }} left in stock!</p>
+                    {% else %}
+                    <p class="text-green-600 font-semibold">✓ In Stock</p>
+                    {% endif %}
+                {% else %}
+                <p class="text-red-600 font-semibold">✗ Out of Stock</p>
+                {% endif %}
+            </div>
+            
+            <!-- Key Specs -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <h3 class="font-bold mb-3">Key Specifications:</h3>
+                <ul class="space-y-2">
+                    {% if product.processor %}
+                    <li><strong>Processor:</strong> {{ product.processor }}</li>
+                    {% endif %}
+                    {% if product.ram %}
+                    <li><strong>RAM:</strong> {{ product.ram }}</li>
+                    {% endif %}
+                    {% if product.storage %}
+                    <li><strong>Storage:</strong> {{ product.storage }}</li>
+                    {% endif %}
+                    {% if product.screen_size %}
+                    <li><strong>Screen:</strong> {{ product.screen_size }}</li>
+                    {% endif %}
+                    {% if product.operating_system %}
+                    <li><strong>OS:</strong> {{ product.operating_system }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <!-- Add to Cart -->
+            {% if product.in_stock %}
+            <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mb-6">
+                {% csrf_token %}
+                <div class="flex items-center space-x-4 mb-4">
+                    <label class="font-semibold">Quantity:</label>
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" 
+                           class="w-20 px-3 py-2 border border-gray-300 rounded">
+                </div>
+                <div class="flex space-x-4">
+                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition text-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                    </button>
+                    <button type="submit" name="buy_now" value="true" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg transition text-lg">
+                        Buy Now
+                    </button>
+                </div>
+            </form>
+            {% else %}
+            <button disabled class="w-full bg-gray-300 text-gray-600 font-bold py-4 px-8 rounded-lg cursor-not-allowed text-lg">
+                Out of Stock
+            </button>
+            {% endif %}
+            
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t">
+                <div class="text-center">
+                    <i class="fas fa-shipping-fast text-3xl text-blue-600 mb-2"></i>
+                    <p class="text-sm font-semibold">Fast Delivery</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-shield-alt text-3xl text-blue-600 mb-2"></i>
+                    <p class="text-sm font-semibold">Warranty</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-undo text-3xl text-blue-600 mb-2"></i>
+                    <p class="text-sm font-semibold">30-Day Returns</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabs: Description, Specs, Reviews -->
+    <div class="mt-12">
+        <div class="border-b border-gray-200">
+            <nav class="flex space-x-8">
+                <button class="tab-btn py-4 px-1 border-b-2 border-blue-600 font-semibold text-blue-600" onclick="openTab('description')">
+                    Description
+                </button>
+                <button class="tab-btn py-4 px-1 border-b-2 border-transparent hover:border-gray-300" onclick="openTab('specs')">
+                    Specifications
+                </button>
+                <button class="tab-btn py-4 px-1 border-b-2 border-transparent hover:border-gray-300" onclick="openTab('reviews')">
+                    Reviews ({{ product.review_count }})
+                </button>
+            </nav>
+        </div>
+        
+        <!-- Description Tab -->
+        <div id="description" class="tab-content py-8">
+            <div class="prose max-w-none">
+                {{ product.description|linebreaks }}
+            </div>
+            
+            {% if product.features %}
+            <div class="mt-6">
+                <h3 class="text-xl font-bold mb-4">Key Features:</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    {% for feature in product.features.splitlines %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Specs Tab -->
+        <div id="specs" class="tab-content py-8 hidden">
+            <table class="w-full">
+                <tbody class="divide-y">
+                    {% if product.processor %}
+                    <tr><td class="py-3 font-semibold w-1/3">Processor</td><td>{{ product.processor }}</td></tr>
+                    {% endif %}
+                    {% if product.ram %}
+                    <tr><td class="py-3 font-semibold">RAM</td><td>{{ product.ram }}</td></tr>
+                    {% endif %}
+                    {% if product.storage %}
+                    <tr><td class="py-3 font-semibold">Storage</td><td>{{ product.storage }}</td></tr>
+                    {% endif %}
+                    {% if product.screen_size %}
+                    <tr><td class="py-3 font-semibold">Screen Size</td><td>{{ product.screen_size }}</td></tr>
+                    {% endif %}
+                    {% if product.operating_system %}
+                    <tr><td class="py-3 font-semibold">Operating System</td><td>{{ product.operating_system }}</td></tr>
+                    {% endif %}
+                    {% if product.color %}
+                    <tr><td class="py-3 font-semibold">Color</td><td>{{ product.color }}</td></tr>
+                    {% endif %}
+                    {% if product.warranty_info %}
+                    <tr><td class="py-3 font-semibold">Warranty</td><td>{{ product.warranty_info }}</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Reviews Tab -->
+        <div id="reviews" class="tab-content py-8 hidden">
+            {% if user.is_authenticated and user_purchased %}
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">Write a Review</h3>
+                <form action="{% url 'store:add_review' product.slug %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="block font-semibold mb-2">Rating</label>
+                        <select name="rating" required class="form-input">
+                            <option value="5">5 Stars - Excellent</option>
+                            <option value="4">4 Stars - Good</option>
+                            <option value="3">3 Stars - Average</option>
+                            <option value="2">2 Stars - Poor</option>
+                            <option value="1">1 Star - Terrible</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block font-semibold mb-2">Title</label>
+                        <input type="text" name="title" required class="form-input">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block font-semibold mb-2">Comment</label>
+                        <textarea name="comment" rows="4" required class="form-input"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Review</button>
+                </form>
+            </div>
+            {% endif %}
+            
+            <!-- Reviews List -->
+            <div class="space-y-6">
+                {% for review in reviews %}
+                <div class="border-b pb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center text-white font-bold mr-3">
+                                {{ review.user.username|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <p class="font-semibold">{{ review.user.username }}</p>
+                                <div class="flex text-yellow-400 text-sm">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                        {% else %}
+                                        <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-500">{{ review.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">{{ review.title }}</h4>
+                    <p class="text-gray-700">{{ review.comment }}</p>
+                    {% if review.is_verified_purchase %}
+                    <span class="inline-block mt-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">✓ Verified Purchase</span>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p class="text-gray-600">No reviews yet. Be the first to review this product!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bundle Recommendations -->
+    {% if bundles %}
+    <div class="mt-12 bg-blue-50 rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-6">🎁 Complete Your Setup - Save 15%!</h2>
+        {% for bundle in bundles %}
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {% for accessory in bundle.accessory_products.all %}
+            <div class="bg-white rounded-lg p-4 text-center">
+                {% if accessory.images.first %}
+                <img src="{{ accessory.images.first.image.url }}" alt="{{ accessory.name }}" class="w-full h-32 object-contain mb-2">
+                {% endif %}
+                <p class="font-semibold text-sm mb-1">{{ accessory.name }}</p>
+                <p class="text-blue-600 font-bold">${{ accessory.price }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-6">
+            <p class="text-lg mb-4">Bundle Total: <span class="text-2xl font-bold text-green-600">${{ bundle.total_price }}</span> <span class="text-gray-500 line-through">${{ bundle.total_price|add:bundle.savings }}</span></p>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">Add Bundle to Cart</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Related Products -->
+    {% if related_products %}
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">You May Also Like</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in related_products %}
+            <div class="product-card">
+                <a href="{% url 'store:product_detail' product.slug %}">
+                    {% if product.images.first %}
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                    {% endif %}
+                    <div class="p-4">
+                        <h3 class="font-semibold mb-2 line-clamp-2">{{ product.name }}</h3>
+                        <p class="text-blue-600 font-bold">${{ product.price }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function openTab(tabName) {
+    // Hide all tabs
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.add('hidden'));
+    
+    // Remove active styling from all buttons
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('border-blue-600', 'text-blue-600');
+        btn.classList.add('border-transparent');
+    });
+    
+    // Show selected tab
+    document.getElementById(tabName).classList.remove('hidden');
+    
+    // Add active styling to clicked button
+    event.target.classList.add('border-blue-600', 'text-blue-600');
+    event.target.classList.remove('border-transparent');
+}
+</script>
+{% endblock %}

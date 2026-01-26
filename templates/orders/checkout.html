@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Lepstore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+    
+    <form method="post" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {% csrf_token %}
+        
+        <!-- Shipping & Payment Form -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Shipping Information -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-6">Shipping Information</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold mb-2">First Name *</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Last Name *</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-semibold mb-2">Email *</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-semibold mb-2">Phone *</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-semibold mb-2">Address *</label>
+                        {{ form.address }}
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">City *</label>
+                        {{ form.city }}
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Postal Code</label>
+                        {{ form.postal_code }}
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-semibold mb-2">Country *</label>
+                        {{ form.country }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Method -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-6">Shipping Method</h2>
+                <div class="space-y-3">
+                    {% for method in shipping_methods %}
+                    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                        <input type="radio" name="shipping_method" value="{{ method.id }}" required class="mr-4">
+                        <div class="flex-1">
+                            <p class="font-semibold">{{ method.name }}</p>
+                            <p class="text-sm text-gray-600">{{ method.description }} - {{ method.estimated_days }}</p>
+                        </div>
+                        <span class="font-bold">${{ method.cost }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Payment Method -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-6">Payment Method</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                        <input type="radio" name="payment_method" value="card" required class="mr-4">
+                        <i class="fas fa-credit-card text-2xl mr-3"></i>
+                        <span class="font-semibold">Credit/Debit Card</span>
+                    </label>
+                    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                        <input type="radio" name="payment_method" value="mpesa" class="mr-4">
+                        <i class="fas fa-mobile-alt text-2xl mr-3"></i>
+                        <span class="font-semibold">M-Pesa</span>
+                    </label>
+                    <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                        <input type="radio" name="payment_method" value="paypal" class="mr-4">
+                        <i class="fab fa-paypal text-2xl mr-3"></i>
+                        <span class="font-semibold">PayPal</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Order Notes -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-bold mb-6">Order Notes (Optional)</h2>
+                {{ form.customer_notes }}
+            </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow p-6 sticky top-24">
+                <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                
+                <!-- Cart Items -->
+                <div class="space-y-4 mb-6 max-h-64 overflow-y-auto">
+                    {% for item in cart %}
+                    <div class="flex items-center">
+                        {% if item.product.images.first %}
+                        <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded mr-3">
+                        {% endif %}
+                        <div class="flex-1">
+                            <p class="font-semibold text-sm">{{ item.product.name }}</p>
+                            <p class="text-xs text-gray-600">Qty: {{ item.quantity }}</p>
+                        </div>
+                        <span class="font-semibold">${{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pricing -->
+                <div class="space-y-3 mb-6 pb-6 border-b">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Subtotal</span>
+                        <span class="font-semibold">${{ cart.get_total_price }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Shipping</span>
+                        <span class="font-semibold" id="shipping-cost">$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Tax</span>
+                        <span class="font-semibold">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between text-xl font-bold mb-6">
+                    <span>Total</span>
+                    <span class="text-blue-600" id="total-cost">${{ cart.get_total_price }}</span>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition mb-4">
+                    Place Order
+                </button>
+                
+                <p class="text-xs text-gray-600 text-center">
+                    By placing your order, you agree to our <a href="#" class="text-blue-600">Terms & Conditions</a>
+                </p>
+                
+                <!-- Security Badges -->
+                <div class="mt-6 pt-6 border-t text-center">
+                    <div class="flex justify-center space-x-4 mb-4">
+                        <i class="fab fa-cc-visa text-3xl text-gray-600"></i>
+                        <i class="fab fa-cc-mastercard text-3xl text-gray-600"></i>
+                        <i class="fab fa-cc-paypal text-3xl text-gray-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-600">
+                        <i class="fas fa-lock mr-1"></i>
+                        Secure SSL Encrypted Payment
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+// Update shipping cost when method changes
+document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const shippingCost = this.closest('label').querySelector('.font-bold').textContent;
+        document.getElementById('shipping-cost').textContent = shippingCost;
+        
+        // Update total
+        const subtotal = parseFloat('{{ cart.get_total_price }}');
+        const shipping = parseFloat(shippingCost.replace('$', ''));
+        const total = subtotal + shipping;
+        document.getElementById('total-cost').textContent = '$' + total.toFixed(2);
+    });
+});
+</script>
+{% endblock %}

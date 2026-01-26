@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lepstore - Maximum Tech, Minimal Price, Delivered Fast{% endblock %}</title>
+    
+    <!-- Favicon -->
+    {% load static %}
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logo-icon.svg' %}">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <!-- Top Bar -->
+        <div class="bg-blue-600 text-white text-sm py-2">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <div>
+                    <span class="mr-4"><i class="fas fa-phone mr-2"></i>+254 700 000 000</span>
+                    <span><i class="fas fa-envelope mr-2"></i>support@lepstore.co.ke</span>
+                </div>
+                <div>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:profile' %}" class="mr-4 hover:text-gray-200">
+                            <i class="fas fa-user mr-1"></i>{{ user.username }}
+                        </a>
+                        <a href="{% url 'orders:order_history' %}" class="mr-4 hover:text-gray-200">My Orders</a>
+                        <a href="{% url 'accounts:logout' %}" class="hover:text-gray-200">Logout</a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="mr-4 hover:text-gray-200">Login</a>
+                        <a href="{% url 'accounts:register' %}" class="hover:text-gray-200">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="{% url 'store:home' %}" class="flex items-center">
+                    <img src="{% static 'images/logo.svg' %}" alt="Lepstore" class="h-12">
+                </a>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-2xl mx-8">
+                    <form action="{% url 'store:search' %}" method="get" class="relative">
+                        <input 
+                            type="search" 
+                            name="q" 
+                            placeholder="Search laptops, phones, accessories..."
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="{{ query|default:'' }}"
+                        >
+                        <button type="submit" class="absolute right-3 top-3 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-search text-xl"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Icons -->
+                <div class="flex items-center space-x-6">
+                    <a href="{% url 'cart:cart_detail' %}" class="relative hover:text-blue-600">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        {% if cart|length > 0 %}
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {{ cart|length }}
+                        </span>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="bg-gray-100 border-t border-gray-200">
+            <div class="container mx-auto px-4">
+                <ul class="flex space-x-8 py-3">
+                    <li><a href="{% url 'store:product_list' %}?category=laptops" class="hover:text-blue-600 font-medium">Laptops</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=tablets" class="hover:text-blue-600 font-medium">Tablets</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=smartphones" class="hover:text-blue-600 font-medium">Smartphones</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=accessories" class="hover:text-blue-600 font-medium">Accessories</a></li>
+                    <li><a href="{% url 'store:product_list' %}" class="hover:text-blue-600 font-medium text-red-600">Deals</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mx-auto px-4 mt-4">
+        {% for message in messages %}
+        <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded relative mb-2" role="alert">
+            <span class="block sm:inline">{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- About -->
+                <div>
+                    <img src="{% static 'images/logo.svg' %}" alt="Lepstore" class="h-10 mb-3 brightness-0 invert">
+                    <p class="text-gray-400">Maximum Tech, Minimal Price, Delivered Fast.</p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'store:home' %}" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="{% url 'store:product_list' %}" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="{% url 'accounts:login' %}" class="text-gray-400 hover:text-white">My Account</a></li>
+                        <li><a href="{% url 'cart:cart_detail' %}" class="text-gray-400 hover:text-white">Cart</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Nairobi, Kenya</li>
+                        <li><i class="fas fa-phone mr-2"></i>+254 700 000 000</li>
+                        <li><i class="fas fa-envelope mr-2"></i>support@lepstore.co.ke</li>
+                        <li class="text-sm mt-4">
+                            <span class="font-semibold text-white">24/7 Live Support</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Value Proposition Bar -->
+            <div class="border-t border-gray-800 mt-8 pt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                    <i class="fas fa-shipping-fast text-3xl text-blue-500 mb-2"></i>
+                    <p class="text-sm font-semibold">Free Shipping</p>
+                    <p class="text-xs text-gray-400">Orders over $500</p>
+                </div>
+                <div>
+                    <i class="fas fa-lock text-3xl text-blue-500 mb-2"></i>
+                    <p class="text-sm font-semibold">Secure Payment</p>
+                    <p class="text-xs text-gray-400">100% Protected</p>
+                </div>
+                <div>
+                    <i class="fas fa-headset text-3xl text-blue-500 mb-2"></i>
+                    <p class="text-sm font-semibold">24/7 Support</p>
+                    <p class="text-xs text-gray-400">Dedicated help</p>
+                </div>
+                <div>
+                    <i class="fas fa-undo text-3xl text-blue-500 mb-2"></i>
+                    <p class="text-sm font-semibold">30-Day Returns</p>
+                    <p class="text-xs text-gray-400">Hassle-free</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 Lepstore. All rights reserved. | <a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms & Conditions</a></p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <i class="fab fa-cc-visa text-3xl"></i>
+                    <i class="fab fa-cc-mastercard text-3xl"></i>
+                    <i class="fab fa-cc-paypal text-3xl"></i>
+                    <i class="fas fa-mobile-alt text-3xl"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
