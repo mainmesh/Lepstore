@@ -32,14 +32,20 @@
                 </div>
             </div>
             <div class="hidden md:block">
-                <!-- Placeholder for hero image -->
-                <div class="bg-white bg-opacity-20 rounded-lg p-8 backdrop-blur-sm">
-                    <img src="https://via.placeholder.com/500x400/4299e1/ffffff?text=Premium+Tech" alt="Tech Products" class="rounded-lg shadow-2xl">
+                <!-- Animated headphone hero -->
+                <div class="bg-white bg-opacity-10 rounded-lg p-8 backdrop-blur-sm flex items-center justify-center">
+                    <img id="hero-headphone" src="{% static 'images/headphone.svg' %}" alt="Headphone" class="rounded-lg shadow-2xl w-80 h-auto animate-hero-bob" style="transform-origin: center center; will-change: transform;">
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script src="{% static 'js/hero.js' %}"></script>
+<style>
+@keyframes hero-bob { 0% { transform: translateY(0);} 50% { transform: translateY(-10px);} 100% { transform: translateY(0);} }
+.animate-hero-bob { animation: hero-bob 4s ease-in-out infinite; }
+</style>
 
 <!-- Category Focus -->
 <section class="container mx-auto px-4 py-16">
