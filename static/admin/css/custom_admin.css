@@ -268,3 +268,60 @@ div.breadcrumbs {
     padding: 10px 15px;
     color: #991b1b;
 }
+
+/* Quick stats on admin index */
+.admin-quick-stats {
+    display:flex;
+    gap:12px;
+    align-items:stretch;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+.admin-quick-stats .card {
+    background:white;
+    padding:16px;
+    border-radius:10px;
+    box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    min-width:160px;
+    flex:1;
+}
+.admin-quick-stats .label {
+    font-size:11px;
+    color:#6b7280;
+    text-transform:uppercase;
+    font-weight:700;
+}
+.admin-quick-stats .value {
+    font-size:22px;
+    font-weight:800;
+    color:#111827;
+    margin-top:6px;
+}
+
+/* Sticky header */
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+    .admin-quick-stats {
+        flex-direction: column;
+    }
+    .admin-quick-stats .card {
+        min-width: auto;
+        width: 100%;
+    }
+    .cta-button {
+        display: block !important;
+        width: 100% !important;
+        text-align: center;
+        padding: 12px 16px !important;
+    }
+    .login .form-row input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
