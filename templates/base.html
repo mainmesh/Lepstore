@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Lepstore - Maximum Tech, Minimal Price, Delivered Fast{% endblock %}</title>
     
-    <!-- Favicon -->
+    <!-- Favicon and icons (SVG + PNG fallbacks) -->
     {% load static %}
     <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+    <link rel="alternate icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
     <link rel="apple-touch-icon" href="{% static 'images/logo-icon.svg' %}">
+    <link rel="mask-icon" href="{% static 'images/logo-icon.svg' %}" color="#1e40af">
+    <meta name="theme-color" content="#1e40af">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
