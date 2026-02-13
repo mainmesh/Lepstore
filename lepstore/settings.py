@@ -23,6 +23,16 @@ ALLOWED_HOSTS = config(
     default='localhost,127.0.0.1,110.1.1.11,0.0.0.0,thezazaplug.vercel.app',
 ).split(',')
 
+# If running on Vercel, include the deployment host and allow vercel.app subdomains.
+vercel_deploy_host = os.getenv('VERCEL_URL') or os.getenv('VERCEL_DEPLOYMENT_URL')
+if vercel_deploy_host:
+    if vercel_deploy_host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(vercel_deploy_host)
+
+# Allow any vercel.app subdomain (useful when project name changes or Vercel provides different deploy urls)
+if '.vercel.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('.vercel.app')
+
 # Application definition
 INSTALLED_APPS = [
     'admin_interface',
