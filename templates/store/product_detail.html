@@ -83,27 +83,23 @@
                 {% endif %}
             </div>
             
-            <!-- Key Specs -->
-            <div class="bg-gray-50 rounded-lg p-4 mb-6">
-                <h3 class="font-bold mb-3">Key Specifications:</h3>
-                <ul class="space-y-2">
-                    {% if product.processor %}
-                    <li><strong>Processor:</strong> {{ product.processor }}</li>
-                    {% endif %}
-                    {% if product.ram %}
-                    <li><strong>RAM:</strong> {{ product.ram }}</li>
-                    {% endif %}
-                    {% if product.storage %}
-                    <li><strong>Storage:</strong> {{ product.storage }}</li>
-                    {% endif %}
-                    {% if product.screen_size %}
-                    <li><strong>Screen:</strong> {{ product.screen_size }}</li>
-                    {% endif %}
-                    {% if product.operating_system %}
-                    <li><strong>OS:</strong> {{ product.operating_system }}</li>
+            <!-- Cannabis Details -->
+            {% if product.is_cannabis %}
+            <div class="bg-green-50 rounded-lg p-4 mb-6">
+                <h3 class="font-bold mb-3">Product Details</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    {% if product.cannabis_type %}<li><strong>Type:</strong> {{ product.cannabis_type|title }}</li>{% endif %}
+                    {% if product.package_amount %}<li><strong>Package:</strong> {{ product.package_amount }}</li>{% endif %}
+                    {% if product.unit_weight_g %}<li><strong>Weight:</strong> {{ product.unit_weight_g }} g</li>{% endif %}
+                    {% if product.thc_percentage %}<li><strong>THC:</strong> {{ product.thc_percentage }}%</li>{% endif %}
+                    {% if product.cbd_percentage %}<li><strong>CBD:</strong> {{ product.cbd_percentage }}%</li>{% endif %}
+                    {% if product.metrc_tag %}<li><strong>Compliance Tag:</strong> {{ product.metrc_tag }}</li>{% endif %}
+                    {% if product.lab_report %}
+                    <li><strong>Lab Report:</strong> <a href="{{ product.lab_report.url }}" class="text-green-700 hover:underline" target="_blank">View Certificate</a></li>
                     {% endif %}
                 </ul>
             </div>
+            {% endif %}
             
             <!-- Add to Cart -->
             {% if product.in_stock %}

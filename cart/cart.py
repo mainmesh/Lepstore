@@ -73,3 +73,9 @@ class Cart:
         if product_id in self.cart:
             return self.cart[product_id]['quantity']
         return 0
+
+    def contains_cannabis(self):
+        """Return True if any product in the cart is marked as cannabis."""
+        product_ids = [int(pid) for pid in self.cart.keys()]
+        products = Product.objects.filter(id__in=product_ids)
+        return products.filter(is_cannabis=True).exists()

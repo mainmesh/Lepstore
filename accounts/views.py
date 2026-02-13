@@ -3,6 +3,69 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserLoginForm, UserUpdateForm
+from django.utils import timezone
+from django.shortcuts import HttpResponse
+
+
+def age_verification(request):
+    """Simple DOB-based age verification view.
+
+    Sets `request.session['is_age_verified'] = True` when user provides a DOB
+    that makes them at least the configured minimum age.
+    """
+    from datetime import datetime
+    from django.conf import settings
+
+    next_url = request.GET.get('next', 'store:home')
+
+    if request.method == 'POST':
+        dob = request.POST.get('dob')
+        try:
+            dob_dt = datetime.strptime(dob, '%Y-%m-%d').date()
+            today = timezone.now().date()
+            age = (today - dob_dt).days // 365
+            min_age = getattr(settings, 'CANNABIS_MIN_AGE', 18)
+            if age >= min_age:
+                request.session['is_age_verified'] = True
+                # Persist to user profile for authenticated users so they only verify once
+                if request.user.is_authenticated:
+                    try:
+                        profile = request.user.userprofile
+                        profile.age_verified = True
+                        profile.age_verified_at = timezone.now()
+                        profile.save()
+                    except Exception:
+                        pass
+                return redirect(next_url)
+            else:
+                return HttpResponse(f'You must be at least {min_age} years old to purchase regulated cannabis products.')
+        except Exception:
+            return HttpResponse('Invalid date provided.', status=400)
+
+    context = {'next': next_url}
+    return render(request, 'accounts/age_verification.html', context)
+
+
+def confirm_age(request):
+    """Simple endpoint to mark session/user as age-verified when user clicks a confirmation (AJAX or form)."""
+    from django.views.decorators.http import require_POST
+    from django.http import JsonResponse
+
+    @require_POST
+    def _post(req):
+        next_url = req.POST.get('next', '/')
+        req.session['is_age_verified'] = True
+        if req.user.is_authenticated:
+            try:
+                profile = req.user.userprofile
+                profile.age_verified = True
+                profile.age_verified_at = timezone.now()
+                profile.save()
+            except Exception:
+                pass
+        return JsonResponse({'ok': True, 'next': next_url})
+
+    return _post(request)
 
 
 def register(request):

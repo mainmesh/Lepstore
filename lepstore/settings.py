@@ -57,6 +57,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Age verification middleware for cannabis products (California)
+MIDDLEWARE += [
+    'lepstore.middleware.AgeVerificationMiddleware',
+]
+
+# Minimum age for cannabis purchases in CA
+CANNABIS_MIN_AGE = int(config('CANNABIS_MIN_AGE', default=18))
+
 ROOT_URLCONF = 'lepstore.urls'
 
 TEMPLATES = [

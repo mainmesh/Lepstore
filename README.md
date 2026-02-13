@@ -1,6 +1,6 @@
-# Lepstore E-commerce Platform
+# Zaza E-commerce Platform
 
-Maximum Tech, Minimal Price, Delivered Fast.
+Premium cannabis, curated for California.
 
 ## Features
 

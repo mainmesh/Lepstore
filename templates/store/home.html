@@ -7,11 +7,11 @@
     <div class="container mx-auto px-4 py-20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-                <h1 class="text-5xl font-bold mb-4">Maximum Tech,<br>Minimal Price</h1>
-                <p class="text-xl mb-6">Premium laptops, tablets, and smartphones delivered fast to your doorstep.</p>
+                <h1 class="text-5xl font-bold mb-4">Premium Cannabis,<br>Curated for California</h1>
+                <p class="text-xl mb-6">Lab-tested flower, pre-rolls, edibles and accessories — discreetly packaged and delivered.</p>
                 <div class="flex space-x-4">
                     <a href="{% url 'store:product_list' %}" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
-                        Shop Now
+                        Shop Cannabis
                     </a>
                     <a href="#deals" class="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition">
                         View Deals
@@ -23,19 +23,19 @@
                         <p>Fast Delivery</p>
                     </div>
                     <div>
-                        <i class="fas fa-shield-alt text-2xl mb-2"></i>
-                        <p>Authentic Products</p>
+                        <i class="fas fa-vial text-2xl mb-2"></i>
+                        <p>Lab Tested</p>
                     </div>
                     <div>
-                        <i class="fas fa-headset text-2xl mb-2"></i>
-                        <p>24/7 Support</p>
+                        <i class="fas fa-user-shield text-2xl mb-2"></i>
+                        <p>Discreet Support</p>
                     </div>
                 </div>
             </div>
             <div class="hidden md:block">
-                <!-- Animated headphone hero -->
-                <div class="bg-white bg-opacity-10 rounded-lg p-8 backdrop-blur-sm flex items-center justify-center">
-                    <img id="hero-headphone" src="{% static 'images/headphone.svg' %}" alt="Headphone" class="rounded-lg shadow-2xl w-80 h-auto animate-hero-bob" style="transform-origin: center center; will-change: transform;">
+                <!-- Cannabis hero illustration -->
+                <div class="bg-white bg-opacity-6 rounded-lg p-8 backdrop-blur-sm flex items-center justify-center">
+                    <img id="hero-cannabis" src="{% static 'images/cannabis-hero.svg' %}" alt="Cannabis" class="rounded-lg shadow-2xl w-80 h-auto" style="transform-origin: center center; will-change: transform;">
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300">
                 {% else %}
                 <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-                    <i class="fas fa-laptop text-6xl text-white"></i>
+                    <i class="fas fa-seedling text-6xl text-white"></i>
                 </div>
                 {% endif %}
                 <div class="p-4 text-center">
@@ -84,7 +84,7 @@
                 <a href="{% url 'store:product_detail' product.slug %}">
                     <div class="relative">
                         {% if product.images.first %}
-                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-64 object-cover">
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
                         {% else %}
                         <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
                             <i class="fas fa-image text-4xl text-gray-400"></i>
@@ -148,7 +148,7 @@
             <a href="{% url 'store:product_detail' product.slug %}">
                 <div class="relative">
                     {% if product.images.first %}
-                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-64 object-cover">
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
                     {% else %}
                     <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
                         <i class="fas fa-image text-4xl text-gray-400"></i>
@@ -223,37 +223,37 @@
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-gray-800 p-6 rounded-lg">
-                <div class="flex text-yellow-400 mb-4">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="mb-4">"Fast delivery and authentic products. Got my MacBook in just 2 days!"</p>
-                <div class="flex items-center">
-                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">JM</span>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <div>
-                        <p class="font-semibold">James Mwangi</p>
-                        <p class="text-sm text-gray-400">Verified Buyer</p>
+                    <p class="mb-4">"Fast delivery and authentic product. Received my order in 2 days — excellent quality."</p>
+                    <div class="flex items-center">
+                        <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                            <span class="font-bold">JM</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold">James Mwangi</p>
+                            <p class="text-sm text-gray-400">Verified Buyer</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="bg-gray-800 p-6 rounded-lg">
-                <div class="flex text-yellow-400 mb-4">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="mb-4">"Best prices in Kenya! Customer service is exceptional."</p>
-                <div class="flex items-center">
-                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">SA</span>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="mb-4">"Best selection in California — lab results included and great customer service."</p>
+                    <div class="flex items-center">
+                        <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                            <span class="font-bold">SA</span>
                     </div>
                     <div>
                         <p class="font-semibold">Sarah Akinyi</p>

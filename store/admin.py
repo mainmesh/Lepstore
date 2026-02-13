@@ -68,8 +68,8 @@ class BrandAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['product_image', 'name', 'category', 'brand', 'formatted_price', 'stock_status', 'total_sold', 'is_available', 'is_featured', 'created_at']
-    list_filter = ['category', 'brand', 'is_available', 'is_featured', 'is_new', 'is_top_rated', 'created_at']
-    search_fields = ['name', 'description', 'processor', 'sku']
+    list_filter = ['category', 'brand', 'is_available', 'is_featured', 'is_new', 'is_top_rated', 'is_cannabis', 'created_at']
+    search_fields = ['name', 'description', 'processor']
     prepopulated_fields = {'slug': ('name',)}
     list_editable = ['is_available', 'is_featured']
     inlines = [ProductImageInline]
@@ -148,6 +148,10 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Additional Information', {
             'fields': ('features', 'whats_in_box', 'warranty_info'),
+            'classes': ('collapse',)
+        }),
+        ('Cannabis / Compliance', {
+            'fields': ('is_cannabis', 'cannabis_type', 'thc_percentage', 'cbd_percentage', 'unit_weight_g', 'package_amount', 'metrc_tag', 'lab_report', 'requires_age_verification'),
             'classes': ('collapse',)
         }),
         ('SEO', {

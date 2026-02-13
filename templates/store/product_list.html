@@ -79,6 +79,9 @@
                                 -{{ product.discount_percentage }}%
                             </span>
                             {% endif %}
+                            {% if product.is_cannabis %}
+                            <span class="absolute top-2 left-2 bg-green-700 text-white text-xs font-bold px-2 py-1 rounded">{{ product.cannabis_type|default:'Cannabis'|title }}</span>
+                            {% endif %}
                             {% if product.stock <= 5 and product.stock > 0 %}
                             <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">
                                 Only {{ product.stock }} left

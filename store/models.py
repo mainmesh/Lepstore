@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
-    """Product categories (Laptops, Tablets, Smartphones, Accessories)"""
+    """Product categories (e.g. Blunts, Flower, Edibles, Accessories)"""
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(blank=True)
@@ -78,6 +78,25 @@ class Product(models.Model):
     features = models.TextField(blank=True, help_text="Key features, one per line")
     whats_in_box = models.TextField(blank=True, help_text="Items included, one per line")
     warranty_info = models.CharField(max_length=200, blank=True)
+
+    # Cannabis specific fields
+    is_cannabis = models.BooleanField(default=False, help_text="Mark true for cannabis products subject to CA regulations")
+    cannabis_type = models.CharField(max_length=50, blank=True, choices=[
+        ("flower", "Flower"),
+        ("pre-roll", "Pre-roll"),
+        ("vape", "Vape"),
+        ("edible", "Edible"),
+        ("concentrate", "Concentrate"),
+        ("topical", "Topical"),
+        ("accessory", "Accessory"),
+    ])
+    thc_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, help_text="THC potency (e.g. 18.50)")
+    cbd_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, help_text="CBD potency (e.g. 0.00)")
+    unit_weight_g = models.DecimalField(max_digits=8, decimal_places=3, null=True, blank=True, help_text="Weight in grams (for flower) or total package weight")
+    package_amount = models.CharField(max_length=100, blank=True, help_text="Quantity/size label (eg '3.5g', '10-pack')")
+    metrc_tag = models.CharField(max_length=100, blank=True, help_text="METRC tag / compliance identifier (CA)")
+    lab_report = models.FileField(upload_to='lab_reports/', null=True, blank=True, help_text="Upload lab certificate (PDF)")
+    requires_age_verification = models.BooleanField(default=True)
     
     # SEO
     meta_description = models.TextField(max_length=160, blank=True)
