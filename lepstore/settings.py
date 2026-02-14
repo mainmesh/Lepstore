@@ -150,6 +150,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # WhiteNoise configuration (quick temporary fix: disable manifest hashing)
 # Use CompressedStaticFilesStorage to avoid MissingManifestEntry crashes during deploy.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# When True, Django will raise if an entry is missing from the staticfiles
+# manifest. Set to False on platforms where the build/runtime manifest can be
+# mismatched (Vercel build/runtime separation). This prevents 500s when an
+# expected hashed file isn't present and falls back to the unhashed filename.
+WHITENOISE_MANIFEST_STRICT = False
 
 # Media files
 MEDIA_URL = '/media/'
