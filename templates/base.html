@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Zaza - The Zaza Plug{% endblock %}</title>
     
-    <!-- Favicon and icons (SVG + PNG fallbacks) -->
-    {% load static %}
-    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
-    <link rel="alternate icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
-    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
-    <link rel="apple-touch-icon" href="{% static 'images/logo-icon.svg' %}">
-    <link rel="mask-icon" href="{% static 'images/logo-icon.svg' %}" color="#f59e0b">
+        <!-- Favicon and icons (SVG + PNG fallbacks). Use absolute static paths to avoid
+            ManifestStaticFilesStorage lookup errors on some deploys. -->
+        {% load static %}
+        <link rel="icon" type="image/png" href="/static/images/favicon.png">
+        <link rel="alternate icon" href="/static/images/favicon.svg" type="image/svg+xml">
+        <link rel="shortcut icon" href="/static/images/favicon.png">
+        <link rel="apple-touch-icon" href="/static/images/logo-icon.svg">
+        <link rel="mask-icon" href="/static/images/logo-icon.svg" color="#f59e0b">
     <meta name="theme-color" content="#f59e0b">
     
     <!-- Tailwind CSS -->
@@ -167,7 +167,7 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-map-marker-alt mr-2"></i>California, USA</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Nyeri, USA</li>
                         <li><i class="fas fa-phone mr-2"></i>+1 (555) 555-0000</li>
                         <li><i class="fas fa-envelope mr-2"></i>support@thezazaplug.com</li>
                         <li class="text-sm mt-4">
