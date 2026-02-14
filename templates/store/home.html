@@ -10,14 +10,14 @@
                 <h1 class="text-5xl font-bold mb-4">Premium Cannabis,<br>Plugging you into the best</h1>
                 <p class="text-xl mb-6">Lab-tested flower, pre-rolls, edibles and accessories — discreetly packaged and delivered.</p>
                 <div class="flex space-x-4">
-                    <a href="{% url 'store:product_list' %}" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+                    <a href="{% url 'store:product_list' %}" class="bg-white text-amber-500 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
                         Shop Cannabis
                     </a>
-                    <a href="#deals" class="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition">
+                    <a href="#deals" class="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-amber-500 transition">
                         View Deals
                     </a>
                 </div>
-                <div class="mt-8 flex space-x-8 text-sm">
+                    <div class="mt-8 flex space-x-8 text-sm">
                     <div>
                         <i class="fas fa-shipping-fast text-2xl mb-2"></i>
                         <p>Fast Delivery</p>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="hidden md:block">
+                <div class="hidden md:block animate-hero-bob">
                 <!-- Cannabis hero illustration -->
                 <div class="bg-white bg-opacity-6 rounded-lg p-8 backdrop-blur-sm flex items-center justify-center">
                     <img id="hero-cannabis" src="{% static 'images/cannabis-hero.svg' %}" alt="Cannabis" class="rounded-lg shadow-2xl w-80 h-auto" style="transform-origin: center center; will-change: transform;">
@@ -114,9 +114,9 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-2xl font-bold text-blue-600">${{ product.price }}</span>
+                                <span class="text-2xl font-bold text-blue-600">Ksh{{ product.price }}</span>
                                 {% if product.original_price %}
-                                <span class="text-sm text-gray-400 line-through ml-2">${{ product.original_price }}</span>
+                                <span class="text-sm text-gray-400 line-through ml-2">Ksh{{ product.original_price }}</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -160,10 +160,10 @@
                     <h3 class="font-semibold text-lg mb-2 line-clamp-2">{{ product.name }}</h3>
                     <div class="flex items-center justify-between mb-3">
                         <div>
-                            <span class="text-2xl font-bold text-red-600">${{ product.price }}</span>
-                            <span class="text-sm text-gray-400 line-through ml-2">${{ product.original_price }}</span>
+                            <span class="text-2xl font-bold text-red-600">Ksh{{ product.price }}</span>
+                            <span class="text-sm text-gray-400 line-through ml-2">Ksh{{ product.original_price }}</span>
                         </div>
-                        <span class="text-green-600 font-semibold">Save ${{ product.savings }}</span>
+                        <span class="text-green-600 font-semibold">Save Ksh{{ product.savings }}</span>
                     </div>
                     <form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {% csrf_token %}
@@ -208,7 +208,7 @@
                             </div>
                             <span class="text-sm text-gray-500 ml-2">({{ product.review_count }} reviews)</span>
                         </div>
-                        <p class="text-xl font-bold text-blue-600">${{ product.price }}</p>
+                        <p class="text-xl font-bold text-blue-600">Ksh{{ product.price }}</p>
                     </div>
                 </a>
             </div>
