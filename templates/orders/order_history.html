@@ -37,14 +37,14 @@
                         <p class="font-semibold">{{ item.product_name }}</p>
                         <p class="text-sm text-gray-600">Quantity: {{ item.quantity }}</p>
                     </div>
-                    <p class="font-bold">${{ item.subtotal }}</p>
+                    <p class="font-bold">Ksh{{ item.subtotal }}</p>
                 </div>
                 {% endfor %}
             </div>
             
             <div class="border-t pt-4 flex justify-between items-center">
                 <div>
-                    <p class="text-gray-600">Total: <span class="text-2xl font-bold text-blue-600">${{ order.total }}</span></p>
+                    <p class="text-gray-600">Total: <span class="text-2xl font-bold text-blue-600">Ksh{{ order.total }}</span></p>
                     {% if order.is_paid %}
                     <p class="text-sm text-green-600 mt-1">✓ Paid</p>
                     {% else %}

@@ -1,7 +1,7 @@
 *.pyc
 __pycache__/
 *.py[cod]
-*$py.class
+*Kshpy.class
 *.so
 .Python
 venv/

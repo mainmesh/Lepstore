@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="LepStore favicon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Zaza favicon">
   <rect width="32" height="32" rx="6" fill="#0f172a"/>
   <g transform="translate(6,6)">
-    <path d="M6 1c3 .8 4.5 3 4.5 5 0 3-2.5 5-4.5 7-1-3 0-6-2-8 2-1 2-2 2-4z" fill="#f59e0b"/>
+    <path d="M6 1c3 .8 4.5 3 4.5 5 0 3-2.5 5-4.5 7-1-3 0-6-2-8 2-1 2-2 2-4z" fill="url(#f)"/>
+    <defs>
+      <linearGradient id="f" x1="0" x2="1">
+        <stop offset="0%" stop-color="#f59e0b"/>
+        <stop offset="100%" stop-color="#b45309"/>
+      </linearGradient>
+    </defs>
   </g>
 </svg>

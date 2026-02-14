@@ -13,7 +13,7 @@
 
     const rotY = dx * 12; // degrees
     const rotX = -dy * 8;
-    el.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+    el.style.transform = `perspective(800px) rotateX(Ksh{rotX}deg) rotateY(Ksh{rotY}deg) translateZ(0)`;
   };
 
   // Reset on leave

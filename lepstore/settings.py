@@ -18,6 +18,10 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-produc
 # requiring environment variables. Set DEBUG=False in production.
 DEBUG = config('DEBUG', default=True, cast=bool)
 
+# If running on Vercel, force production-safe settings
+if os.getenv('VERCEL') or os.getenv('VERCEL_URL'):
+    DEBUG = False
+
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     default='localhost,127.0.0.1,110.1.1.11,0.0.0.0,thezazaplug.vercel.app',

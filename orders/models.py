@@ -114,4 +114,4 @@ class ShippingMethod(models.Model):
         ordering = ['cost']
     
     def __str__(self):
-        return f"{self.name} - ${self.cost}"
+        return f"{self.name} - Ksh{self.cost}"

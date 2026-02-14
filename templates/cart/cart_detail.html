@@ -31,7 +31,7 @@
                             {{ item.product.name }}
                         </a>
                         <p class="text-gray-600 text-sm mt-1">{{ item.product.brand.name }}</p>
-                        <p class="text-blue-600 font-bold text-xl mt-2">${{ item.price }}</p>
+                        <p class="text-blue-600 font-bold text-xl mt-2">Ksh{{ item.price }}</p>
                     </div>
                     
                     <!-- Quantity & Actions -->
@@ -44,7 +44,7 @@
                             <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-r">+</button>
                         </form>
                         
-                        <p class="text-xl font-bold">${{ item.total_price }}</p>
+                        <p class="text-xl font-bold">Ksh{{ item.total_price }}</p>
                         
                         <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
                             {% csrf_token %}
@@ -66,7 +66,7 @@
                 <div class="space-y-4 mb-6">
                     <div class="flex justify-between">
                         <span class="text-gray-600">Subtotal ({{ cart|length }} items)</span>
-                        <span class="font-semibold">${{ cart.get_total_price }}</span>
+                        <span class="font-semibold">Ksh{{ cart.get_total_price }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-600">Shipping</span>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="border-t pt-4 flex justify-between text-xl font-bold">
                         <span>Total</span>
-                        <span class="text-blue-600">${{ cart.get_total_price }}</span>
+                        <span class="text-blue-600">Ksh{{ cart.get_total_price }}</span>
                     </div>
                 </div>
                 
@@ -90,7 +90,7 @@
                 {% if cart.get_total_price < 500 %}
                 <div class="mt-6 p-4 bg-blue-50 rounded-lg">
                     <p class="text-sm text-gray-700 mb-2">
-                        Add <strong>${{ 500|add:cart.get_total_price|floatformat:2 }}</strong> more for <strong>FREE SHIPPING!</strong>
+                        Add <strong>Ksh{{ 500|add:cart.get_total_price|floatformat:2 }}</strong> more for <strong>FREE SHIPPING!</strong>
                     </p>
                     <div class="w-full bg-gray-200 rounded-full h-2">
                         <div class="bg-blue-600 h-2 rounded-full" style="width: {{ cart.get_total_price|floatformat:0|add:'%' }}"></div>

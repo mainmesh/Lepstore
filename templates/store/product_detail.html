@@ -57,16 +57,16 @@
             <!-- Price -->
             <div class="mb-6">
                 <div class="flex items-center">
-                    <span class="text-4xl font-bold text-blue-600">${{ product.price }}</span>
+                    <span class="text-4xl font-bold text-blue-600">Ksh{{ product.price }}</span>
                     {% if product.original_price %}
-                    <span class="text-2xl text-gray-400 line-through ml-4">${{ product.original_price }}</span>
+                    <span class="text-2xl text-gray-400 line-through ml-4">Ksh{{ product.original_price }}</span>
                     <span class="ml-4 bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">
                         SAVE {{ product.discount_percentage }}%
                     </span>
                     {% endif %}
                 </div>
                 {% if product.savings %}
-                <p class="text-green-600 font-semibold mt-2">You save ${{ product.savings }}</p>
+                <p class="text-green-600 font-semibold mt-2">You save Ksh{{ product.savings }}</p>
                 {% endif %}
             </div>
             
@@ -285,12 +285,12 @@
                 <img src="{{ accessory.images.first.image.url }}" alt="{{ accessory.name }}" class="w-full h-32 object-contain mb-2">
                 {% endif %}
                 <p class="font-semibold text-sm mb-1">{{ accessory.name }}</p>
-                <p class="text-blue-600 font-bold">${{ accessory.price }}</p>
+                <p class="text-blue-600 font-bold">Ksh{{ accessory.price }}</p>
             </div>
             {% endfor %}
         </div>
         <div class="text-center mt-6">
-            <p class="text-lg mb-4">Bundle Total: <span class="text-2xl font-bold text-green-600">${{ bundle.total_price }}</span> <span class="text-gray-500 line-through">${{ bundle.total_price|add:bundle.savings }}</span></p>
+            <p class="text-lg mb-4">Bundle Total: <span class="text-2xl font-bold text-green-600">Ksh{{ bundle.total_price }}</span> <span class="text-gray-500 line-through">Ksh{{ bundle.total_price|add:bundle.savings }}</span></p>
             <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg">Add Bundle to Cart</button>
         </div>
         {% endfor %}
@@ -310,7 +310,7 @@
                     {% endif %}
                     <div class="p-4">
                         <h3 class="font-semibold mb-2 line-clamp-2">{{ product.name }}</h3>
-                        <p class="text-blue-600 font-bold">${{ product.price }}</p>
+                        <p class="text-blue-600 font-bold">Ksh{{ product.price }}</p>
                     </div>
                 </a>
             </div>
