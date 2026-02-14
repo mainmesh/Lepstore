@@ -1,13 +1,25 @@
 {
-  "name": "thezazaplug",
   "version": 2,
   "builds": [
-    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "static" } },
-    { "src": "api/wsgi.py", "use": "@vercel/python" }
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run vercel-build",
+        "distDir": "."
+      }
+    },
+    {
+      "src": "api/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": ["staticfiles/**", "templates/**", "static/**"]
+      }
+    }
   ],
   "routes": [
-    { "src": "/static/(.*)", "dest": "/static/Ksh1", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
-    { "src": "/media/(.*)", "dest": "/media/Ksh1", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
+    { "src": "/static/(.*)", "dest": "/api/wsgi.py" },
+    { "src": "/media/(.*)", "dest": "/api/wsgi.py" },
     { "src": "/(.*)", "dest": "/api/wsgi.py" }
   ]
 }
