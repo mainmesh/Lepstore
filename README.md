@@ -1,6 +1,6 @@
 # Zaza E-commerce Platform
 
-Premium cannabis, curated for California.
+Premium cannabis, curated for Nyeri.
 
 ## Features
 

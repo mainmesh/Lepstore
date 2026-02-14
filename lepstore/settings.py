@@ -74,7 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Age verification middleware for cannabis products (California)
+# Age verification middleware for cannabis products (Nyeri)
 MIDDLEWARE += [
     'lepstore.middleware.AgeVerificationMiddleware',
 ]
