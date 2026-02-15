@@ -226,3 +226,15 @@ if USE_S3:
         'CacheControl': 'max-age=86400',
     }
 
+
+# Debug: print effective staticfiles settings and related env vars on startup.
+# This writes to stderr so Vercel function logs will show which storage class
+# and manifest-strict setting the runtime is actually using.
+import sys
+try:
+    sys.stderr.write(f"DEBUG: STATICFILES_STORAGE={STATICFILES_STORAGE}\n")
+    sys.stderr.write(f"DEBUG: WHITENOISE_MANIFEST_STRICT={globals().get('WHITENOISE_MANIFEST_STRICT', 'unset')}\n")
+    sys.stderr.write(f"DEBUG: ENV STATICFILES_STORAGE={os.getenv('STATICFILES_STORAGE')} USE_S3={os.getenv('USE_S3')} STATICFILES_ON_S3={os.getenv('STATICFILES_ON_S3')}\n")
+except Exception:
+    pass
+
