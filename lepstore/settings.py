@@ -238,3 +238,15 @@ try:
 except Exception:
     pass
 
+
+# Sledgehammer: ensure runtime uses non-manifest WhiteNoise storage so missing
+# manifest entries cannot crash the site. This override is intentional and
+# temporary while we resolve Vercel build/runtime differences.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_MANIFEST_STRICT = False
+try:
+    sys.stderr.write(f"FORCE: STATICFILES_STORAGE={STATICFILES_STORAGE}\n")
+    sys.stderr.write(f"FORCE: WHITENOISE_MANIFEST_STRICT={WHITENOISE_MANIFEST_STRICT}\n")
+except Exception:
+    pass
+
