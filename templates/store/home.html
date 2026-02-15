@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- Hero Banner -->
-<section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+<section class="relative bg-gradient-to-r from-amber-500 to-amber-700 text-white">
     <div class="container mx-auto px-4 py-20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
@@ -58,12 +58,12 @@
                 {% if category.image %}
                 <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300">
                 {% else %}
-                <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                <div class="w-full h-48 bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
                     <i class="fas fa-seedling text-6xl text-white"></i>
                 </div>
                 {% endif %}
                 <div class="p-4 text-center">
-                    <h3 class="text-xl font-semibold group-hover:text-blue-600">{{ category.name }}</h3>
+                    <h3 class="text-xl font-semibold group-hover:text-amber-500">{{ category.name }}</h3>
                 </div>
             </div>
         </a>
@@ -76,7 +76,7 @@
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-3xl font-bold">Featured Products</h2>
-            <a href="{% url 'store:product_list' %}" class="text-blue-600 font-semibold hover:underline">View All →</a>
+            <a href="{% url 'store:product_list' %}" class="text-amber-500 font-semibold hover:underline">View All →</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for product in featured_products %}
@@ -114,7 +114,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-2xl font-bold text-blue-600">Ksh{{ product.price }}</span>
+                                <span class="text-2xl font-bold text-amber-500">Ksh{{ product.price }}</span>
                                 {% if product.original_price %}
                                 <span class="text-sm text-gray-400 line-through ml-2">Ksh{{ product.original_price }}</span>
                                 {% endif %}
@@ -123,7 +123,7 @@
                         <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mt-3">
                             {% csrf_token %}
                             <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+                            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition">
                                 Add to Cart
                             </button>
                         </form>
@@ -140,7 +140,7 @@
 <section id="deals" class="container mx-auto px-4 py-16">
     <div class="flex justify-between items-center mb-8">
         <h2 class="text-3xl font-bold text-red-600">⚡ Hot Deals</h2>
-        <a href="{% url 'store:product_list' %}" class="text-blue-600 font-semibold hover:underline">View All Deals →</a>
+        <a href="{% url 'store:product_list' %}" class="text-amber-500 font-semibold hover:underline">View All Deals →</a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for product in sale_products %}
@@ -208,7 +208,7 @@
                             </div>
                             <span class="text-sm text-gray-500 ml-2">({{ product.review_count }} reviews)</span>
                         </div>
-                        <p class="text-xl font-bold text-blue-600">Ksh{{ product.price }}</p>
+                        <p class="text-xl font-bold text-amber-500">Ksh{{ product.price }}</p>
                     </div>
                 </a>
             </div>
@@ -233,7 +233,7 @@
                     </div>
                     <p class="mb-4">"Fast delivery and authentic product. Received my order in 2 days — excellent quality."</p>
                     <div class="flex items-center">
-                        <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                        <div class="bg-amber-500 rounded-full h-10 w-10 flex items-center justify-center mr-3">
                             <span class="font-bold">JM</span>
                         </div>
                         <div>
@@ -252,7 +252,7 @@
                     </div>
                     <p class="mb-4">"Best selection in Nyeri — lab results included and great customer service."</p>
                     <div class="flex items-center">
-                        <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                        <div class="bg-amber-500 rounded-full h-10 w-10 flex items-center justify-center mr-3">
                             <span class="font-bold">SA</span>
                     </div>
                     <div>
@@ -271,7 +271,7 @@
                 </div>
                 <p class="mb-4">"Genuine products with warranty. Highly recommended!"</p>
                 <div class="flex items-center">
-                    <div class="bg-blue-600 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                    <div class="bg-amber-500 rounded-full h-10 w-10 flex items-center justify-center mr-3">
                         <span class="font-bold">DK</span>
                     </div>
                     <div>
