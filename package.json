@@ -10,7 +10,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ./static/css/styles.css --minify",
     "watch:css": "tailwindcss -i ./src/input.css -o ./static/css/styles.css --watch",
-    "vercel-build": "npm run build:css && python manage.py collectstatic --noinput",
+    "vercel-build": "npm run build:css",
     "build": "npm run vercel-build"
   }
 }
