@@ -1,0 +1,38 @@
+/* Brand overrides: amber color + small utilities */
+:root{--brand-amber:#f59e0b}
+
+/* Utility: h-40 (10rem) commonly used for slightly smaller product images */
+.h-40{height:10rem}
+
+/* Apply amber brand color to font-awesome icons and small UI accents */
+.fa,.fas,.far,.fab{color:var(--brand-amber)}
+.site-amber{color:var(--brand-amber)}
+.text-amber-500{color:var(--brand-amber)}
+.bg-amber-500{background-color:var(--brand-amber)}
+.hover\:text-amber-500:hover{color:var(--brand-amber)}
+
+/* Make sure footer/value icons remain visible on dark backgrounds */
+footer .fa, footer .fab{opacity:0.95}
+
+/* Override common Tailwind blue utilities to use brand amber */
+.text-blue-500{color:var(--brand-amber) !important}
+.text-blue-600{color:var(--brand-amber) !important}
+.text-blue-800{color:var(--brand-amber) !important}
+.bg-blue-600{background-color:var(--brand-amber) !important}
+.bg-blue-500{background-color:var(--brand-amber) !important}
+.hover\:text-blue-600:hover{color:var(--brand-amber) !important}
+.hover\:bg-blue-700:hover{background-color:var(--brand-amber) !important}
+
+/* Gradient token overrides used by Tailwind's gradient utilities */
+.from-blue-600{--tw-gradient-from:var(--brand-amber) !important; --tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to) !important}
+.to-blue-800{--tw-gradient-to:var(--brand-amber) !important}
+
+/* Ring override for focus states that reference blue ring */
+.focus\:ring-blue-500:focus{--tw-ring-color:var(--brand-amber) !important}
+
+/* Ensure buttons and links styled via blue classes reflect brand */
+a.text-blue-600, button.bg-blue-600, .btn-primary{background-color:var(--brand-amber) !important; color:#0f172a !important}
+
+/* Small helpers to reduce visual dominance where needed */
+.bg-blue-50{background-color:rgba(245,158,11,0.08) !important}
+.bg-blue-100{background-color:rgba(245,158,11,0.12) !important}

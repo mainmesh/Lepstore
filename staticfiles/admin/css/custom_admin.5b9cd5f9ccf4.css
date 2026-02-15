@@ -1,0 +1,327 @@
+/* LepStore Custom Admin Styles */
+
+/* Override Django admin colors with modern palette */
+:root {
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --secondary: #764ba2;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+}
+
+/* Header Styling */
+#header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Sidebar Navigation */
+.module h2, .module caption, .inline-group h2 {
+    background: var(--primary) !important;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Buttons */
+.button, input[type=submit], input[type=button], .submit-row input, button {
+    background: var(--primary) !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: var(--primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: var(--success) !important;
+}
+
+.button.default:hover {
+    background: #059669 !important;
+}
+
+.deletelink {
+    background: var(--danger) !important;
+}
+
+.deletelink:hover {
+    background: #dc2626 !important;
+}
+
+/* Change List */
+#changelist {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#changelist-filter {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#changelist-filter h2 {
+    background: var(--primary) !important;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 -20px 15px -20px;
+}
+
+/* Results Table */
+#result_list {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#result_list thead th {
+    background: #f9fafb !important;
+    color: #374151;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 12px !important;
+}
+
+#result_list tbody tr {
+    transition: background 0.2s ease;
+}
+
+#result_list tbody tr:hover {
+    background: #f9fafb !important;
+}
+
+/* Forms */
+.form-row {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.form-row:hover {
+    background: #f9fafb;
+}
+
+fieldset.module {
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+}
+
+/* Breadcrumbs */
+div.breadcrumbs {
+    background: #f9fafb !important;
+    border-radius: 8px;
+    padding: 12px 20px !important;
+    margin-bottom: 20px;
+}
+
+/* Messages */
+.messagelist li {
+    border-radius: 8px !important;
+    padding: 15px 20px !important;
+    margin-bottom: 10px;
+}
+
+.messagelist .success {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+    border-left: 4px solid var(--success) !important;
+}
+
+.messagelist .warning {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+    border-left: 4px solid var(--warning) !important;
+}
+
+.messagelist .error {
+    background: #fee2e2 !important;
+    color: #991b1b !important;
+    border-left: 4px solid var(--danger) !important;
+}
+
+/* Action Bar */
+.actions {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 15px !important;
+    margin-bottom: 20px;
+}
+
+/* Pagination */
+.paginator {
+    border-radius: 8px;
+    padding: 15px;
+    background: #f9fafb;
+}
+
+.paginator a {
+    color: var(--primary) !important;
+    font-weight: 600;
+}
+
+.paginator a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Widgets */
+#content-main > div {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Login Page */
+.login #header {
+    height: auto;
+    padding: 40px 0;
+}
+
+.login #container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.login .form-row {
+    padding: 0;
+}
+
+.login input[type="text"], .login input[type="password"] {
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.login input[type="text"]:focus, .login input[type="password"]:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Inline Forms */
+.inline-related {
+    border-radius: 8px;
+    background: #f9fafb;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.inline-related h3 {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: -15px -15px 15px -15px;
+}
+
+/* Object Tools */
+.object-tools {
+    border-radius: 8px;
+}
+
+.object-tools li a {
+    border-radius: 8px !important;
+    background: var(--primary) !important;
+}
+
+.object-tools li a:hover {
+    background: var(--primary-dark) !important;
+}
+
+/* Calendar Widget */
+.calendarbox {
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* Help Text */
+.help {
+    color: #6b7280;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Error Messages */
+.errorlist {
+    background: #fee2e2;
+    border-left: 4px solid var(--danger);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #991b1b;
+}
+
+/* Quick stats on admin index */
+.admin-quick-stats {
+    display:flex;
+    gap:12px;
+    align-items:stretch;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+.admin-quick-stats .card {
+    background:white;
+    padding:16px;
+    border-radius:10px;
+    box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    min-width:160px;
+    flex:1;
+}
+.admin-quick-stats .label {
+    font-size:11px;
+    color:#6b7280;
+    text-transform:uppercase;
+    font-weight:700;
+}
+.admin-quick-stats .value {
+    font-size:22px;
+    font-weight:800;
+    color:#111827;
+    margin-top:6px;
+}
+
+/* Sticky header */
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+    .admin-quick-stats {
+        flex-direction: column;
+    }
+    .admin-quick-stats .card {
+        min-width: auto;
+        width: 100%;
+    }
+    .cta-button {
+        display: block !important;
+        width: 100% !important;
+        text-align: center;
+        padding: 12px 16px !important;
+    }
+    .login .form-row input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

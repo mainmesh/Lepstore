@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Icon: Shopping bag with tech elements -->
+  <g transform="translate(10, 10)">
+    <!-- Shopping bag -->
+    <path d="M8 10 L8 36 C8 38 10 40 12 40 L28 40 C30 40 32 38 32 36 L32 10 Z" 
+          fill="url(#logoGradient)" filter="url(#shadow)"/>
+    <path d="M12 10 L12 8 C12 4 15 2 20 2 C25 2 28 4 28 8 L28 10" 
+          stroke="url(#logoGradient)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    
+    <!-- Tech circuit lines -->
+    <circle cx="20" cy="22" r="3" fill="white" opacity="0.9"/>
+    <line x1="20" y1="25" x2="20" y2="32" stroke="white" stroke-width="1.5" opacity="0.7"/>
+    <line x1="14" y1="28" x2="26" y2="28" stroke="white" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="14" cy="28" r="1.5" fill="white" opacity="0.9"/>
+    <circle cx="26" cy="28" r="1.5" fill="white" opacity="0.9"/>
+  </g>
+  
+  <!-- Text: Lepstore -->
+  <text x="55" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1f2937">
+    Lep<tspan fill="url(#logoGradient)">store</tspan>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="56" y="50" font-family="Arial, sans-serif" font-size="9" fill="#6b7280" letter-spacing="1">
+    TECH GEAR DELIVERED
+  </text>
+</svg>

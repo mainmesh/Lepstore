@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" aria-hidden="true">
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(120,40)">
+    <!-- stylized cannabis leaf, simple geometric form -->
+    <g fill="#f59e0b" stroke="#0f172a" stroke-width="1" transform="scale(2)">
+      <path d="M36 8c6 6 12 18 10 28-2 10-12 20-20 26 2-10-2-20-8-28-6-8-6-18 8-26 4 0 6 0 10 0z"/>
+      <path d="M18 0c8 2 16 10 18 18 2 8-2 18-8 26-6-6-12-12-20-18 6-6 8-14 10-26z"/>
+      <path d="M60 0c-8 4-14 12-18 20 6 2 10 8 12 14 8-6 14-14 18-24-4-6-8-10-12-10z"/>
+      <circle cx="34" cy="40" r="6" fill="#0f172a"/>
+    </g>
+  </g>
+</svg>

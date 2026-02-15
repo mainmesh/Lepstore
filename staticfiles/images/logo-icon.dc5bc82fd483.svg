@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shopping bag with rounded corners -->
+  <rect x="8" y="14" width="32" height="28" rx="3" fill="url(#iconGradient)"/>
+  
+  <!-- Handle -->
+  <path d="M14 14 L14 10 C14 6 18 4 24 4 C30 4 34 6 34 10 L34 14" 
+        stroke="url(#iconGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Tech elements -->
+  <circle cx="24" cy="26" r="4" fill="white" opacity="0.95"/>
+  <line x1="24" y1="30" x2="24" y2="36" stroke="white" stroke-width="2" opacity="0.8"/>
+  <line x1="16" y1="33" x2="32" y2="33" stroke="white" stroke-width="2" opacity="0.8"/>
+  <circle cx="16" cy="33" r="2" fill="white" opacity="0.95"/>
+  <circle cx="32" cy="33" r="2" fill="white" opacity="0.95"/>
+</svg>
