@@ -215,9 +215,9 @@ if USE_S3:
     # Optionally serve static files from S3 too. Set STATICFILES_ON_S3=True to enable.
     if config('STATICFILES_ON_S3', default=False, cast=bool):
         STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-    else:
-        # keep WhiteNoise for static files
-        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # If STATICFILES_ON_S3 is not set, keep the top-level STATICFILES_STORAGE
+    # value (set earlier in this file). Avoid overriding it here with the
+    # Manifest storage which can raise on missing entries during runtime.
 
     # Recommended S3 settings
     AWS_DEFAULT_ACL = None
