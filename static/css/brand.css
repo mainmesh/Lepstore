@@ -36,3 +36,32 @@ a.text-blue-600, button.bg-blue-600, .btn-primary{background-color:var(--brand-a
 /* Small helpers to reduce visual dominance where needed */
 .bg-blue-50{background-color:rgba(245,158,11,0.08) !important}
 .bg-blue-100{background-color:rgba(245,158,11,0.12) !important}
+
+/* Inputs & stat boxes: make sure focused/active states use the amber brand
+	 and provide a `.stats-input` helper used by the hero/stat widgets */
+.stats-input, input.stats-input, .collect-stats, input.collect-stats {
+	background-color: #ffffff;
+	border: 1px solid rgba(15,23,42,0.06);
+	border-radius: 0.5rem;
+	padding: .5rem 1rem;
+	color: #0f172a;
+}
+.stats-input::placeholder, input.stats-input::placeholder {
+	color: rgba(15,23,42,0.4);
+}
+/* Focus/active styling uses the brand amber color */
+.stats-input:focus, input.stats-input:focus, .collect-stats:focus, input.collect-stats:focus,
+.stats-input:active, input.stats-input:active {
+	outline: none;
+	border-color: var(--brand-amber);
+	box-shadow: 0 0 0 4px rgba(245,158,11,0.12);
+}
+
+/* Generic form inputs: subtle amber focus ring so search/quantity inputs match brand */
+input[type="search"], input[type="text"], input[type="number"], textarea, select {
+	transition: box-shadow .12s ease, border-color .12s ease;
+}
+input[type="search"]:focus, input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+	border-color: var(--brand-amber);
+	box-shadow: 0 0 0 4px rgba(245,158,11,0.08);
+}
