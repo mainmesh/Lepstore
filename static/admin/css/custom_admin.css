@@ -324,6 +324,32 @@ div.breadcrumbs {
 .admin-sidebar nav a { color:#c7d2fe; text-decoration:none; display:block; padding:8px 10px; border-radius:6px }
 .admin-sidebar nav a:hover { background:#111827; color:#fff }
 
+.admin-sidebar nav a .icon{ width:18px; display:inline-block; text-align:center; margin-right:8px }
+.admin-sidebar nav a.active, .admin-sidebar nav a.active:hover {
+    background: linear-gradient(90deg, rgba(102,126,234,1) 0%, rgba(118,75,162,1) 100%);
+    color: white !important;
+}
+.admin-sidebar .nav-section { color:#94a3b8; font-size:12px; margin:12px 0 6px; text-transform:uppercase; letter-spacing:0.6px }
+
+/* Topbar */
+.admin-topbar { background: #ffffff; border-bottom:1px solid #eef2ff; padding:8px 0; }
+.admin-topbar .container { display:flex; align-items:center; justify-content:space-between; }
+.sidebar-toggle { background:transparent; border:none; font-size:18px; padding:8px; cursor:pointer }
+.topbar-title { font-weight:700; color:#111827 }
+.topbar-actions .small-link { margin-left:10px; color:#6b7280; text-decoration:none }
+
+/* Content wrapper */
+.admin-content-wrapper { margin-left: 240px; padding:28px; padding-bottom:56px; min-height:calc(100vh - 160px); background:#f8fafc }
+
+/* Footer adjustments: make room when fixed */
+.custom-admin-footer { position:fixed; left:240px; right:0; bottom:0; background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151 }
+
+@media (max-width: 900px) {
+    .admin-sidebar { position:relative; width:100%; top:0; bottom:auto; }
+    .admin-content-wrapper { margin-left: 0 !important; padding:16px }
+    .custom-admin-footer { left:0 }
+}
+
 /* Make main admin content shift right to account for fixed sidebar */
 .dashboard #content, .changeform #content, .changelist #content { margin-left: 240px !important; }
 
