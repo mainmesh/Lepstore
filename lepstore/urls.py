@@ -7,17 +7,18 @@ from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from dashboard.views import admin_dashboard
+from .custom_admin import lep_admin
 
-# Custom admin URL configuration
-admin.site.index_template = 'admin/custom_index.html'
-admin.site.site_header = "LepStore Admin Dashboard"
-admin.site.site_title = "LepStore Admin"
-admin.site.index_title = "Welcome to LepStore Admin"
+# Use custom admin site (lep_admin) as primary admin at /admin/
+lep_admin.index_template = 'admin/custom_index.html'
+lep_admin.site_header = "LepStore Admin Dashboard"
+lep_admin.site_title = "LepStore Admin"
+lep_admin.index_title = "Welcome to LepStore Admin"
 urlpatterns = [
-    path('admin/', admin_dashboard, name='admin_dashboard'),
+    path('admin/', lep_admin.urls),
+    # Keep the default admin available at /dj-admin/ if needed
     path('dj-admin/', admin.site.urls),
-    # Serve the admin login view at /admin/login/ so the customized template is used
-    path('admin/login/', admin.site.login, name='admin_login'),
+    # Keep admin dashboard view reachable
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('', include('store.urls')),
     path('cart/', include('cart.urls')),
