@@ -68,7 +68,7 @@
                     <a href="{% url 'store:product_detail' product.slug %}">
                         <div class="relative">
                             {% if product.images.first %}
-                            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-64 object-cover">
+                            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 sm:h-56 lg:h-64 object-cover">
                             {% else %}
                             <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
                                 <i class="fas fa-image text-4xl text-gray-400"></i>

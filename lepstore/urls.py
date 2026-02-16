@@ -12,9 +12,9 @@ admin.site.index_template = 'admin/custom_index.html'
 admin.site.site_header = "LepStore Admin Dashboard"
 admin.site.site_title = "LepStore Admin"
 admin.site.index_title = "Welcome to LepStore Admin"
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin_dashboard, name='admin_dashboard'),
+    path('dj-admin/', admin.site.urls),
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('', include('store.urls')),
     path('cart/', include('cart.urls')),

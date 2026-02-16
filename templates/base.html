@@ -30,16 +30,17 @@
     <style>
         /* Floating WhatsApp button */
         .whatsapp-float{
-            position:fixed;right:24px;bottom:24px;z-index:9999;
-            background:#25D366;color:#fff;border-radius:9999px;padding:10px 14px;
-            display:flex;align-items:center;gap:8px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,0.12);
+            position:fixed;right:18px;bottom:18px;z-index:9999;
+            background:#25D366;color:#fff;border-radius:50%;
+            width:56px;height:56px;padding:0;display:flex;align-items:center;justify-content:center;
+            text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,0.12);
         }
-        .whatsapp-float i{font-size:20px}
-        .whatsapp-float .label{font-weight:600;font-size:14px}
-        .whatsapp-float:hover{opacity:.95}
-        @media (max-width:640px){
-            .whatsapp-float{padding:10px;border-radius:50%;}
-            .whatsapp-float .label{display:none}
+        .whatsapp-float i{font-size:22px}
+        .whatsapp-float .label{display:none}
+        .whatsapp-float:hover{opacity:.95;transform:translateY(-2px)}
+        @media (min-width:1024px){
+            /* slightly smaller on large screens to avoid covering content */
+            .whatsapp-float{width:52px;height:52px;right:28px;bottom:28px}
         }
     </style>
 
@@ -79,7 +80,7 @@
                 </a>
                 
                 <!-- Search Bar -->
-                <div class="flex-1 max-w-2xl mx-8">
+                <div class="flex-1 max-w-2xl mx-8 hidden sm:block">
                     <form action="{% url 'store:search' %}" method="get" class="relative">
                         <input 
                             type="search" 
@@ -88,14 +89,24 @@
                             class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
                             value="{{ query|default:'' }}"
                         >
-                            <button type="submit" class="absolute right-3 top-3 text-gray-600 hover:text-amber-500">
+                        <button type="submit" class="absolute right-3 top-3 text-gray-600 hover:text-amber-500">
                             <i class="fas fa-search text-xl"></i>
                         </button>
                     </form>
                 </div>
+
+                <!-- Mobile icons: search + menu -->
+                <div class="sm:hidden flex items-center space-x-3">
+                    <button id="mobile-search-btn" aria-label="Open search" class="text-gray-700 p-2 rounded hover:bg-gray-100">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="mobile-menu-btn" aria-label="Open menu" class="text-gray-700 p-2 rounded hover:bg-gray-100">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
                 
                 <!-- Icons -->
-                <div class="flex items-center space-x-6">
+                <div class="hidden sm:flex items-center space-x-6">
                     <a href="{% url 'cart:cart_detail' %}" class="relative hover:text-amber-500">
                         <i class="fas fa-shopping-cart text-2xl"></i>
                         {% if cart|length > 0 %}
@@ -108,18 +119,30 @@
             </div>
         </div>
         
-        <!-- Navigation -->
+        <!-- Navigation (desktop) -->
         <nav class="bg-gray-100 border-t border-gray-200">
             <div class="container mx-auto px-4">
-                <ul class="flex space-x-8 py-3">
+                <ul class="hidden sm:flex flex-row space-x-8 py-3">
                     <li><a href="{% url 'store:product_list' %}?category=blunts" class="hover:text-amber-500 font-medium">Blunts</a></li>
                     <li><a href="{% url 'store:product_list' %}?category=bag" class="hover:text-amber-500 font-medium">Bag</a></li>
                     <li><a href="{% url 'store:product_list' %}?category=edibles" class="hover:text-amber-500 font-medium">Edibles</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=accessories" class="hover:text-amber-500 font-medium">Accessories</a></li>
                     <li><a href="{% url 'store:product_list' %}" class="hover:text-amber-500 font-medium text-red-600">Deals</a></li>
                 </ul>
             </div>
         </nav>
+
+        <!-- Mobile Navigation (toggled) -->
+        <div id="mobile-nav" class="sm:hidden hidden bg-white border-t border-gray-200">
+            <div class="px-4 py-4">
+                <ul class="space-y-3">
+                    <li><a href="{% url 'store:product_list' %}?category=blunts" class="block text-gray-700 font-medium">Blunts</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=bag" class="block text-gray-700 font-medium">Bag</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=edibles" class="block text-gray-700 font-medium">Edibles</a></li>
+                    <li><a href="{% url 'store:product_list' %}?category=accessories" class="block text-gray-700 font-medium">Accessories</a></li>
+                    <li><a href="{% url 'store:product_list' %}" class="block text-red-600 font-semibold">Deals</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <!-- Messages -->
@@ -230,9 +253,56 @@
     </footer>
 
     <a href="https://wa.me/254754102950?text=Hi%20there%2C%20I%27d%20like%20to%20ask%20about%20your%20products." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-        <span class="label">WhatsApp</span>
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
     </a>
+
+    <!-- Mobile search overlay -->
+    <div id="mobile-search" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-start pt-24 px-4">
+        <div class="w-full">
+            <form action="{% url 'store:search' %}" method="get" class="bg-white rounded-lg p-3 shadow-md">
+                <div class="flex items-center">
+                    <input name="q" type="search" placeholder="Search..." class="w-full px-3 py-2 border rounded-l-md focus:outline-none">
+                    <button type="submit" class="bg-amber-500 text-white px-4 py-2 rounded-r-md"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            var menuBtn = document.getElementById('mobile-menu-btn');
+            var mobileNav = document.getElementById('mobile-nav');
+            var searchBtn = document.getElementById('mobile-search-btn');
+            var mobileSearch = document.getElementById('mobile-search');
+
+            if(menuBtn && mobileNav){
+                menuBtn.addEventListener('click', function(){
+                    mobileNav.classList.toggle('hidden');
+                });
+            }
+            if(searchBtn && mobileSearch){
+                searchBtn.addEventListener('click', function(){
+                    mobileSearch.classList.toggle('hidden');
+                    if(!mobileSearch.classList.contains('hidden')){
+                        var input = mobileSearch.querySelector('input[name="q"]'); if(input) input.focus();
+                    }
+                });
+            }
+            // close on escape
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape'){
+                    if(mobileNav && !mobileNav.classList.contains('hidden')) mobileNav.classList.add('hidden');
+                    if(mobileSearch && !mobileSearch.classList.contains('hidden')) mobileSearch.classList.add('hidden');
+                }
+            });
+            // close search when clicking overlay background
+            if(mobileSearch){
+                mobileSearch.addEventListener('click', function(e){
+                    if(e.target === mobileSearch) mobileSearch.classList.add('hidden');
+                });
+            }
+        })();
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>
