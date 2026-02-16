@@ -5,7 +5,7 @@
 {% block content %}
 <div style="display:flex;align-items:center;justify-content:center;min-height:60vh;padding:24px;">
     <div style="width:100%;max-width:380px;">
-        <form method="post" action="{% url 'admin:login' %}" novalidate>
+            <form method="post" action="{% url 'lep_admin:login' %}" novalidate>
             {% csrf_token %}
             {% if form.non_field_errors %}
                 <div class="errornote" style="margin-bottom:12px;padding:10px;border-left:4px solid #ef4444;background:#fff5f5;color:#991b1b;border-radius:6px;">
