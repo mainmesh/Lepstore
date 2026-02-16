@@ -325,3 +325,31 @@ div.breadcrumbs {
         box-sizing: border-box;
     }
 }
+
+/* Hide admin sidebars and extra chrome on the login page so only the login form shows */
+.login [class*="sidebar"],
+.login [id*="sidebar"],
+.login .admin-interface-sidebar,
+.login nav,
+.login #nav-sidebar,
+.login .app-list,
+.login .module-tools {
+    display: none !important;
+}
+
+/* Center login container and make form compact */
+.login #container, .login .login #container {
+    max-width: 760px !important;
+    margin: 0 auto !important;
+    padding: 18px !important;
+    box-shadow: none !important;
+}
+.login body, .login html {
+    background: #0b1220 !important;
+}
+
+/* Make the login form less tall on small screens */
+@media (max-width: 640px) {
+    .login #container { padding: 12px !important; }
+    .login img { max-width: 96px !important; height: auto !important; }
+}
