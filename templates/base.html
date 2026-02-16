@@ -144,9 +144,9 @@
         <nav class="bg-gray-100 border-t border-gray-200">
             <div class="container mx-auto px-4">
                 <ul class="hidden sm:flex flex-row space-x-8 py-3">
-                    <li><a href="{% url 'store:product_list' %}?category=blunts" class="hover:text-amber-500 font-medium">Blunts</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=bag" class="hover:text-amber-500 font-medium">Bag</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=edibles" class="hover:text-amber-500 font-medium">Edibles</a></li>
+                    {% for cat in site_categories|slice:":5" %}
+                        <li><a href="{% url 'store:product_list' %}?category={{ cat.slug }}" class="hover:text-amber-500 font-medium">{{ cat.name }}</a></li>
+                    {% endfor %}
                     <li><a href="{% url 'store:product_list' %}" class="hover:text-amber-500 font-medium text-red-600">Deals</a></li>
                 </ul>
             </div>
@@ -156,10 +156,9 @@
         <div id="mobile-nav" class="sm:hidden hidden bg-white border-t border-gray-200">
             <div class="px-4 py-4">
                 <ul class="space-y-3">
-                    <li><a href="{% url 'store:product_list' %}?category=blunts" class="block text-gray-700 font-medium">Blunts</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=bag" class="block text-gray-700 font-medium">Bag</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=edibles" class="block text-gray-700 font-medium">Edibles</a></li>
-                    <li><a href="{% url 'store:product_list' %}?category=accessories" class="block text-gray-700 font-medium">Accessories</a></li>
+                    {% for cat in site_categories %}
+                        <li><a href="{% url 'store:product_list' %}?category={{ cat.slug }}" class="block text-gray-700 font-medium">{{ cat.name }}</a></li>
+                    {% endfor %}
                     <li><a href="{% url 'store:product_list' %}" class="block text-red-600 font-semibold">Deals</a></li>
                 </ul>
             </div>
@@ -215,10 +214,9 @@
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
                         <li><a href="{% url 'store:home' %}" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="{% url 'store:product_list' %}?category=blunts" class="text-gray-400 hover:text-white">Blunts</a></li>
-                        <li><a href="{% url 'store:product_list' %}?category=bag" class="text-gray-400 hover:text-white">Bag</a></li>
-                        <li><a href="{% url 'store:product_list' %}?category=edibles" class="text-gray-400 hover:text-white">Edibles</a></li>
-                        <li><a href="{% url 'store:product_list' %}?category=accessories" class="text-gray-400 hover:text-white">Accessories</a></li>
+                        {% for cat in site_categories|slice:":6" %}
+                            <li><a href="{% url 'store:product_list' %}?category={{ cat.slug }}" class="text-gray-400 hover:text-white">{{ cat.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 
