@@ -27,7 +27,22 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
     </style>
-    
+    <style>
+        /* Floating WhatsApp button */
+        .whatsapp-float{
+            position:fixed;right:24px;bottom:24px;z-index:9999;
+            background:#25D366;color:#fff;border-radius:9999px;padding:10px 14px;
+            display:flex;align-items:center;gap:8px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,0.12);
+        }
+        .whatsapp-float i{font-size:20px}
+        .whatsapp-float .label{font-weight:600;font-size:14px}
+        .whatsapp-float:hover{opacity:.95}
+        @media (max-width:640px){
+            .whatsapp-float{padding:10px;border-radius:50%;}
+            .whatsapp-float .label{display:none}
+        }
+    </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-gray-50">
@@ -37,7 +52,7 @@
         <div class="bg-gray-800 text-white text-sm py-2">
             <div class="container mx-auto px-4 flex justify-between items-center">
                 <div>
-                    <span class="mr-4"><i class="fas fa-phone mr-2"></i>+1 (555) 555-0000</span>
+                    <span class="mr-4"><i class="fas fa-phone mr-2"></i>0754102950</span>
                     <span><i class="fas fa-envelope mr-2"></i>support@thezazaplug.com</span>
                 </div>
                 <div>
@@ -168,7 +183,7 @@
                     <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li><i class="fas fa-map-marker-alt mr-2"></i>Nyeri, Kenya</li>
-                        <li><i class="fas fa-phone mr-2"></i>+1 (555) 555-0000</li>
+                        <li><i class="fas fa-phone mr-2"></i>0754102950</li>
                         <li><i class="fas fa-envelope mr-2"></i>support@thezazaplug.com</li>
                         <li class="text-sm mt-4">
                             <span class="font-semibold text-white">Discreet & Compliant Shipping</span>
@@ -214,6 +229,12 @@
         </div>
     </footer>
 
+    <a href="https://wa.me/254754102950?text=Hi%20there%2C%20I%27d%20like%20to%20ask%20about%20your%20products." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="label">WhatsApp</span>
+    </a>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>
+
