@@ -2,13 +2,26 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.db.models import Count, Sum, Avg
 from django.urls import reverse
-from .models import Category, Brand, Product, ProductImage, Review, Bundle
+from .models import Category, Brand, Product, ProductImage, Review, Bundle, Variant, VariantImage
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
     fields = ['image', 'alt_text', 'is_primary', 'order']
+
+
+class VariantImageInline(admin.TabularInline):
+    model = VariantImage
+    extra = 1
+    fields = ['image', 'alt_text', 'order']
+
+
+class VariantInline(admin.TabularInline):
+    model = Variant
+    extra = 0
+    fields = ['name', 'sku', 'price', 'stock', 'is_active', 'is_default']
+    show_change_link = True
 
 
 @admin.register(Category)
@@ -72,7 +85,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'processor']
     prepopulated_fields = {'slug': ('name',)}
     list_editable = ['is_available', 'is_featured']
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, VariantInline]
     list_per_page = 25
     date_hierarchy = 'created_at'
     

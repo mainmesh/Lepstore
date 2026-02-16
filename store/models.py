@@ -171,6 +171,47 @@ class Product(models.Model):
         return self.reviews.filter(is_approved=True).count()
 
 
+class Variant(models.Model):
+    """Product variant / SKU support"""
+    product = models.ForeignKey(Product, related_name='variants', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, blank=True, help_text="Optional variant label (e.g. 'Red / 64GB')")
+    sku = models.CharField(max_length=100, blank=True, null=True, db_index=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    stock = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    is_active = models.BooleanField(default=True)
+    attributes = models.JSONField(blank=True, default=dict, help_text="Key-value pairs for variant options (color, size, etc.)")
+    is_default = models.BooleanField(default=False, help_text="Mark as default variant shown on the storefront")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-is_default', '-created_at']
+        unique_together = [('product', 'sku')]
+
+    def __str__(self):
+        if self.name:
+            return f"{self.product.name} — {self.name}"
+        return f"{self.product.name} — SKU: {self.sku or 'n/a'}"
+
+    @property
+    def effective_price(self):
+        return self.price if self.price is not None else self.product.price
+
+
+class VariantImage(models.Model):
+    variant = models.ForeignKey(Variant, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='variants/')
+    alt_text = models.CharField(max_length=200, blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f"Image for {self.variant}"
+
+
 class ProductImage(models.Model):
     """Multiple images for a product"""
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
