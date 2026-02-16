@@ -305,6 +305,36 @@ div.breadcrumbs {
     z-index: 60;
 }
 
+/* Custom admin layout: sidebar + content */
+.custom-admin-header {
+    background: #ffffff;
+    border-bottom: 1px solid #eef2ff;
+    padding: 12px 0;
+}
+.custom-admin-header .container { display:flex;align-items:center;justify-content:space-between; }
+.admin-logo { height:36px; margin-right:12px; }
+.brand-link { display:flex;align-items:center;text-decoration:none;color:#111827 }
+.brand-title { font-weight:700; margin-left:6px; color:#111827 }
+.header-actions { display:flex;gap:12px;align-items:center }
+.header-actions .small-link { color:#6b7280; font-size:13px; text-decoration:none }
+
+.admin-sidebar { width:220px; position:fixed; left:0; top:72px; bottom:40px; background:#0f172a; color:#fff; padding:18px; overflow:auto; }
+.admin-sidebar nav ul { list-style:none; padding:0; margin:0 }
+.admin-sidebar nav li { margin-bottom:8px }
+.admin-sidebar nav a { color:#c7d2fe; text-decoration:none; display:block; padding:8px 10px; border-radius:6px }
+.admin-sidebar nav a:hover { background:#111827; color:#fff }
+
+/* Make main admin content shift right to account for fixed sidebar */
+.dashboard #content, .changeform #content, .changelist #content { margin-left: 240px !important; }
+
+.custom-admin-footer { position:fixed; left:220px; right:0; bottom:0; background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151 }
+
+@media (max-width: 900px) {
+    .admin-sidebar { position:relative; width:100%; top:0; bottom:auto; }
+    .dashboard #content, .changeform #content, .changelist #content { margin-left: 0 !important; }
+    .custom-admin-footer { left:0 }
+}
+
 /* Responsive tweaks */
 @media (max-width: 640px) {
     .admin-quick-stats {

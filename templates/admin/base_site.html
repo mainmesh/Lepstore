@@ -2,6 +2,46 @@
 {% load static %}
 
 {% block extrastyle %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+        {{ block.super }}
+        <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <header class="custom-admin-header">
+        <div class="container">
+            <a href="{% url 'admin:index' %}" class="brand-link">
+                <img src="{% static 'images/logo-icon.svg' %}" alt="LepStore" class="admin-logo" />
+                <span class="brand-title">LepStore Admin</span>
+            </a>
+            <div class="header-actions">
+                <span class="user-name">{{ user.get_full_name|default:user.username }}</span>
+                <a href="{% url 'admin:password_change' %}" class="small-link">Change password</a>
+                <a href="{% url 'accounts:logout' %}" class="small-link">Logout</a>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block nav-global %}
+    <aside class="admin-sidebar">
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin:store_product_changelist' %}">Products</a></li>
+                <li><a href="{% url 'admin:orders_order_changelist' %}">Orders</a></li>
+                <li><a href="{% url 'admin:auth_user_changelist' %}">Customers</a></li>
+                <li><a href="{% url 'admin:store_category_changelist' %}">Categories</a></li>
+                <li><a href="{% url 'admin:store_brand_changelist' %}">Brands</a></li>
+                <li><a href="{% url 'admin:store_bundle_changelist' %}">Bundles</a></li>
+                <li><a href="{% url 'admin:store_review_changelist' %}">Reviews</a></li>
+                <li><a href="{% url 'admin:orders_shippingmethod_changelist' %}">Shipping Methods</a></li>
+                <li><a href="{% url 'admin:logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+{% endblock %}
+
+{% block footer %}
+    <footer class="custom-admin-footer">
+        <div class="container">&copy; {{ now|date:"Y" }} LepStore — Management Console</div>
+    </footer>
 {% endblock %}
