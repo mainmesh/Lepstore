@@ -16,8 +16,8 @@ admin.site.index_title = "Welcome to LepStore Admin"
 urlpatterns = [
     path('admin/', admin_dashboard, name='admin_dashboard'),
     path('dj-admin/', admin.site.urls),
-    # Keep legacy admin login URL working by redirecting to the real admin login
-    path('admin/login/', RedirectView.as_view(url='/dj-admin/login/', query_string=True, permanent=False)),
+    # Serve the admin login view at /admin/login/ so the customized template is used
+    path('admin/login/', admin.site.login, name='admin_login'),
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('', include('store.urls')),
     path('cart/', include('cart.urls')),
