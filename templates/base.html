@@ -8,11 +8,11 @@
         <!-- Favicon and icons (SVG + PNG fallbacks). Use absolute static paths to avoid
             ManifestStaticFilesStorage lookup errors on some deploys. -->
         {% load static %}
-        <link rel="icon" type="image/png" href="/static/images/favicon.png">
-        <link rel="alternate icon" href="/static/images/favicon.svg" type="image/svg+xml">
-        <link rel="shortcut icon" href="/static/images/favicon.png">
-        <link rel="apple-touch-icon" href="/static/images/logo-icon.svg">
-        <link rel="mask-icon" href="/static/images/logo-icon.svg" color="#f59e0b">
+        <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+        <link rel="alternate icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+        <link rel="apple-touch-icon" href="{% static 'images/logo-icon.svg' %}">
+        <link rel="mask-icon" href="{% static 'images/logo-icon.svg' %}" color="#f59e0b">
     <meta name="theme-color" content="#f59e0b">
     
     <!-- Tailwind CSS -->
@@ -76,7 +76,7 @@
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <a href="{% url 'store:home' %}" class="flex items-center">
-                    <img src="{% static 'images/logo.svg' %}" alt="Zaza" class="h-12">
+                    <img src="{% static 'images/logo.svg' %}" alt="Zaza" class="h-8 sm:h-12 block" style="max-width:140px;">
                 </a>
                 
                 <!-- Search Bar -->
