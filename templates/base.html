@@ -44,6 +44,14 @@
         }
     </style>
 
+    <style>
+        /* Ensure header logo is visible on small screens and sits above overlays */
+        .site-logo{display:block!important;position:relative;z-index:60;max-height:48px;}
+        @media (max-width:640px){
+            .site-logo{max-height:36px;height:auto}
+        }
+    </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-gray-50">
@@ -76,7 +84,7 @@
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <a href="{% url 'store:home' %}" class="flex items-center">
-                    <img src="{% static 'images/logo.svg' %}" alt="Zaza" class="h-8 sm:h-12 block" style="max-width:140px;">
+                    <img src="{% static 'images/logo.svg' %}" alt="Zaza" class="h-8 sm:h-12 block site-logo" style="max-width:140px;">
                 </a>
                 
                 <!-- Search Bar -->
