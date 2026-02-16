@@ -25,4 +25,17 @@ def transfer_registrations():
             pass
 
 
+# Unregister models from the default admin to avoid exposing the default admin interface
+def unregister_default_admin():
+    for model in list(admin.site._registry.keys()):
+        try:
+            admin.site.unregister(model)
+        except Exception:
+            # ignore models that cannot be unregistered
+            pass
+
+
+unregister_default_admin()
+
+
 transfer_registrations()

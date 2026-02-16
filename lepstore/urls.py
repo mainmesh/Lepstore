@@ -16,8 +16,6 @@ lep_admin.site_title = "LepStore Admin"
 lep_admin.index_title = "Welcome to LepStore Admin"
 urlpatterns = [
     path('admin/', lep_admin.urls),
-    # Keep the default admin available at /dj-admin/ if needed
-    path('dj-admin/', admin.site.urls),
     # Keep admin dashboard view reachable
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     path('', include('store.urls')),
