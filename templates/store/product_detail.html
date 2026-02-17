@@ -117,6 +117,9 @@
                     <button type="submit" name="buy_now" value="true" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg transition text-lg">
                         Buy Now
                     </button>
+                    <button type="button" id="whatsapp-product-btn" data-phone="254YOURNUMBER" class="flex-1 bg-green-700 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-lg transition text-lg">
+                        <i class="fab fa-whatsapp mr-2"></i>Order via WhatsApp
+                    </button>
                 </div>
             </form>
             {% else %}
@@ -321,6 +324,28 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+    const wpBtn = document.getElementById('whatsapp-product-btn');
+    if(wpBtn){
+        wpBtn.addEventListener('click', function(){
+            const phone = wpBtn.dataset.phone || '254YOURNUMBER';
+            const qtyInput = document.querySelector('input[name="quantity"]');
+            const qty = qtyInput ? Number(qtyInput.value) : 1;
+            const name = "{{ product.name|escapejs }}";
+            const unit = parseFloat("{{ product.price }}") || 0;
+            const total = (unit * qty).toFixed(2);
+
+            let msg = 'Order from Zaza\n\n';
+            msg += '- ' + name + ' x' + qty + ' — Ksh' + total + '\n\n';
+            msg += 'Subtotal: Ksh' + total + '\n\n';
+            msg += 'Customer details (please provide):\nName:\nPhone number:\nDelivery address:\nAny notes:';
+
+            const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+            window.open(url, '_blank');
+        });
+    }
+});
+
 function openTab(tabName) {
     // Hide all tabs
     const tabs = document.querySelectorAll('.tab-content');

@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.utils.translation import gettext_lazy as _
+from importlib import import_module
+from django.apps import apps
 
 
 class LepAdminSite(AdminSite):
@@ -12,7 +14,19 @@ class LepAdminSite(AdminSite):
 
 
 # Create an instance to use in urls
-lep_admin = LepAdminSite(name='lep_admin')
+# Use the standard 'admin' name so URL reversing in admin templates works
+lep_admin = LepAdminSite(name='admin')
+
+
+# Ensure each app's admin module is imported so registrations are populated
+def import_all_app_admins():
+    for app_config in apps.get_app_configs():
+        module_name = f"{app_config.name}.admin"
+        try:
+            import_module(module_name)
+        except ModuleNotFoundError:
+            # some apps don't have an admin module
+            continue
 
 
 # Transfer existing registrations from the default admin site so models remain available
@@ -35,7 +49,6 @@ def unregister_default_admin():
             pass
 
 
-unregister_default_admin()
-
-
+import_all_app_admins()
 transfer_registrations()
+unregister_default_admin()

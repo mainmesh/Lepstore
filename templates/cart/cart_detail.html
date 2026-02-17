@@ -78,11 +78,11 @@
                     </div>
                 </div>
                 
-                <a href="{% url 'orders:checkout' %}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-4 rounded-lg transition mb-4">
-                    Proceed to Checkout
-                </a>
+                <button id="whatsapp-order-btn" data-phone="254YOURNUMBER" type="button" class="block w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-4 rounded-lg transition mb-4">
+                    <i class="fab fa-whatsapp mr-2"></i>Order via WhatsApp
+                </button>
                 
-                <a href="{% url 'store:product_list' %}" class="block w-full text-center text-blue-600 hover:underline">
+                <a href="{% url 'store:product_list' %}" class="block w-full bg-amber-500 hover:bg-amber-600 text-white text-center font-bold py-3 rounded-lg transition">
                     Continue Shopping
                 </a>
                 
@@ -134,3 +134,30 @@
     {% endif %}
 </div>
 {% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const btn = document.getElementById('whatsapp-order-btn');
+    if(!btn) return;
+
+    const cartData = [
+        {% for item in cart %}
+        {name: "{{ item.product.name|escapejs }}", qty: {{ item.quantity }}, price: "{{ item.price }}", total: "{{ item.total_price }}"},
+        {% endfor %}
+    ];
+    const subtotal = "{{ cart.get_total_price }}";
+
+    btn.addEventListener('click', function(){
+        const phone = btn.dataset.phone || '254YOURNUMBER';
+        let msg = 'Order from Zaza\n\n';
+        cartData.forEach(function(i){
+            msg += '- ' + i.name + ' x' + i.qty + ' — Ksh' + i.total + '\n';
+        });
+        msg += '\nSubtotal: Ksh' + subtotal + '\n\n';
+        msg += 'Customer details (please provide):\nName:\nPhone number:\nDelivery address:\nAny notes:';
+
+        const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+        window.open(url, '_blank');
+    });
+});
+</script>

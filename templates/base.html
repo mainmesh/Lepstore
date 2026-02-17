@@ -45,15 +45,21 @@
     </style>
 
     <style>
-        /* Ensure header logo is visible on small screens and sits above overlays */
+        /* Header logo & title
+           - Hide the graphical logo on small screens (can't install image there)
+           - Keep the textual site name visible on all sizes and style it
+        */
         .logo-link{position:relative;z-index:9999}
         .site-logo{display:block!important;position:relative;z-index:9999;max-height:48px;}
+        /* Mobile: hide the graphical logo so only the name remains */
         @media (max-width:640px){
-            .site-logo{max-height:36px;height:auto}
+            .site-logo{display:none!important}
+            .site-logo-fallback{display:none!important}
+            .site-title{font-size:18px;color:#b45309;font-weight:700}
         }
-        /* Ensure the site title next to logo is always visible and clickable */
-        .site-title{display:inline-block!important;line-height:1;vertical-align:middle}
-        .logo-link .site-title{color:#0f172a}
+        /* Desktop/title styling */
+        .site-title{display:inline-block!important;line-height:1;vertical-align:middle;font-size:20px;color:#f59e0b;font-weight:700;letter-spacing:0.2px}
+        .logo-link .site-title{color:#f59e0b}
         /* Ensure mobile nav or overlays don't cover the logo */
         #mobile-nav, .mobile-overlay { z-index: 1000; }
         @media (max-width:360px){
