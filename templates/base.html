@@ -50,6 +50,12 @@
         @media (max-width:640px){
             .site-logo{max-height:36px;height:auto}
         }
+        /* Ensure the site title next to logo is always visible and clickable */
+        .site-title{display:inline-block!important;line-height:1;vertical-align:middle}
+        .logo-link .site-title{color:#0f172a}
+        @media (max-width:360px){
+            .site-title{font-size:14px}
+        }
     </style>
 
     {% block extra_css %}{% endblock %}
@@ -83,7 +89,7 @@
             <div class="flex items-center justify-between">
                                 <!-- Logo (inline SVG to ensure visibility on mobile without relying on static file serving) -->
                                 <a href="{% url 'store:home' %}" class="flex items-center logo-link" aria-label="Zaza home" style="position:relative;z-index:70;" title="Go to homepage">
-                                        <svg class="site-logo" style="max-width:140px;height:auto;display:block;" viewBox="0 0 240 48" role="img" aria-label="Zaza logo" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="site-logo" style="max-width:140px;height:auto;display:block;" viewBox="0 0 240 48" role="img" aria-label="Zaza logo" xmlns="http://www.w3.org/2000/svg">
                                             <title>Zaza</title>
                                             <defs>
                                                 <linearGradient id="g" x1="0" x2="1">
@@ -98,7 +104,8 @@
                                                 <text x="56" y="32" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">Zaza</text>
                                             </g>
                                         </svg>
-                                </a>
+                                        <span class="site-title ml-3 font-semibold text-lg text-amber-600">Zaza</span>
+                                    </a>
                 
                 <!-- Search Bar -->
                 <div class="flex-1 max-w-2xl mx-8 hidden sm:block">
