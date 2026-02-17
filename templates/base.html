@@ -108,6 +108,9 @@
                                             </g>
                                         </svg>
                                         <span class="site-title ml-3 font-semibold text-lg text-amber-600">Zaza</span>
+                                        {% load static %}
+                                        <!-- Fallback image for devices where inline SVG may be hidden -->
+                                        <img src="{% static 'images/logo.svg' %}" alt="Zaza" class="site-logo-fallback ml-2 block sm:hidden" style="height:28px; width:auto;" />
                                     </a>
                 
                 <!-- Search Bar -->
