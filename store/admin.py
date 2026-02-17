@@ -34,7 +34,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
     def product_count(self, obj):
         count = obj.products.count()
-        url = reverse('admin:store_product_changelist') + f'?category__id__exact={obj.id}'
+        url = reverse('lep_admin:store_product_changelist') + f'?category__id__exact={obj.id}'
         return format_html('<a href="{}">{} products</a>', url, count)
     product_count.short_description = 'Products'
     
@@ -67,7 +67,7 @@ class BrandAdmin(admin.ModelAdmin):
     
     def product_count(self, obj):
         count = obj.products.count()
-        url = reverse('admin:store_product_changelist') + f'?brand__id__exact={obj.id}'
+        url = reverse('lep_admin:store_product_changelist') + f'?brand__id__exact={obj.id}'
         return format_html('<a href="{}">{} products</a>', url, count)
     product_count.short_description = 'Products'
     

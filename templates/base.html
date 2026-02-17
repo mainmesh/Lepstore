@@ -46,13 +46,16 @@
 
     <style>
         /* Ensure header logo is visible on small screens and sits above overlays */
-        .site-logo{display:block!important;position:relative;z-index:60;max-height:48px;}
+        .logo-link{position:relative;z-index:9999}
+        .site-logo{display:block!important;position:relative;z-index:9999;max-height:48px;}
         @media (max-width:640px){
             .site-logo{max-height:36px;height:auto}
         }
         /* Ensure the site title next to logo is always visible and clickable */
         .site-title{display:inline-block!important;line-height:1;vertical-align:middle}
         .logo-link .site-title{color:#0f172a}
+        /* Ensure mobile nav or overlays don't cover the logo */
+        #mobile-nav, .mobile-overlay { z-index: 1000; }
         @media (max-width:360px){
             .site-title{font-size:14px}
         }
