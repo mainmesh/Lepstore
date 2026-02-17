@@ -65,3 +65,59 @@ input[type="search"]:focus, input[type="text"]:focus, input[type="number"]:focus
 	border-color: var(--brand-amber);
 	box-shadow: 0 0 0 4px rgba(245,158,11,0.08);
 }
+
+/* Global button styles (desktop + mobile responsive) */
+.btn, button, a.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5rem;
+	padding: .6rem 1rem;
+	border-radius: .6rem;
+	font-weight: 700;
+	text-decoration: none;
+	transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+	border: 1px solid rgba(15,23,42,0.06);
+}
+
+/* Primary (brand) */
+.btn-primary, .bg-amber-500, a.btn-primary {
+	background-color: var(--brand-amber) !important;
+	color: #0f172a !important;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+/* Secondary / Neutral */
+.btn-secondary {
+	background: transparent;
+	color: var(--brand-amber);
+	border: 1px solid rgba(15,23,42,0.06);
+}
+
+/* WhatsApp style */
+.btn-whatsapp {
+	background: #25D366;
+	color: #fff;
+}
+.btn-whatsapp:hover { opacity: .95; transform: translateY(-2px); }
+
+/* Full width on small screens, compact on desktop */
+@media (max-width: 640px) {
+	.btn, .btn-primary, .btn-whatsapp, .btn-secondary {
+		display: block !important;
+		width: 100% !important;
+		padding: 14px 16px !important;
+		border-radius: 10px !important;
+		font-size: 16px !important;
+	}
+}
+
+@media (min-width: 641px) {
+	.btn { padding: .7rem 1.25rem; border-radius: .6rem; }
+}
+
+/* Small utility to make existing links behave like buttons */
+.link-btn { display:inline-block; padding:.5rem .75rem; border-radius:.5rem; }
+
+/* Ensure cart badge inside button remains visible */
+.btn .badge { background:#ef4444; color:#fff; padding:2px 6px; border-radius:999px; font-size:12px; }
