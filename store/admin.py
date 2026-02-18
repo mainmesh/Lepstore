@@ -34,7 +34,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
     def product_count(self, obj):
         count = obj.products.count()
-        url = reverse('lep_admin:store_product_changelist') + f'?category__id__exact={obj.id}'
+        url = f'/admin/store/product/?category__id__exact={obj.id}'
         return format_html('<a href="{}">{} products</a>', url, count)
     product_count.short_description = 'Products'
     
@@ -67,7 +67,7 @@ class BrandAdmin(admin.ModelAdmin):
     
     def product_count(self, obj):
         count = obj.products.count()
-        url = reverse('lep_admin:store_product_changelist') + f'?brand__id__exact={obj.id}'
+        url = f'/admin/store/product/?brand__id__exact={obj.id}'
         return format_html('<a href="{}">{} products</a>', url, count)
     product_count.short_description = 'Products'
     
@@ -199,3 +199,16 @@ class BundleAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     search_fields = ['main_product__name', 'title']
     filter_horizontal = ['accessory_products']
+
+
+@admin.register(Variant)
+class VariantAdmin(admin.ModelAdmin):
+    list_display = ['product', 'name', 'sku', 'effective_price', 'stock', 'is_active', 'is_default']
+    search_fields = ['product__name', 'sku', 'name']
+    list_filter = ['is_active', 'is_default']
+
+
+@admin.register(VariantImage)
+class VariantImageAdmin(admin.ModelAdmin):
+    list_display = ['variant', 'order']
+    search_fields = ['variant__product__name']

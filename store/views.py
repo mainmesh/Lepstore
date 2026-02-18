@@ -270,3 +270,13 @@ def search(request):
         'total_results': paginator.count,
     }
     return render(request, 'store/search_results.html', context)
+
+
+def contact(request):
+    """Simple contact page to avoid missing reverse errors."""
+    # Minimal contact info page; can be expanded later with a form.
+    context = {
+        'phone': '+254754102950',
+        'email': 'support@lepstore.example',
+    }
+    return render(request, 'store/contact.html', context)

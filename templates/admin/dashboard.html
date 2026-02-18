@@ -395,7 +395,7 @@
                 {% for order in recent_orders %}
                 <tr>
                     <td>
-                        <a href="{% url 'lep_admin:orders_order_change' order.id %}" style="color: #667eea; text-decoration: none;">
+                        <a href="/admin/orders/order/{{ order.id }}/change/" style="color: #667eea; text-decoration: none;">
                             {{ order.order_number }}
                         </a>
                     </td>
