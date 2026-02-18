@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q, Count, Avg
 from django.contrib import messages
@@ -280,3 +281,8 @@ def contact(request):
         'email': 'support@lepstore.example',
     }
     return render(request, 'store/contact.html', context)
+
+
+def health(request):
+    """Lightweight health endpoint used by deploy checks."""
+    return HttpResponse('OK', status=200)

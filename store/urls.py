@@ -11,4 +11,5 @@ urlpatterns = [
     path('product/<slug:slug>/review/', views.add_review, name='add_review'),
     path('contact/', views.contact, name='contact'),
     path('search/', views.search, name='search'),
+    path('health/', views.health, name='health'),
 ]
