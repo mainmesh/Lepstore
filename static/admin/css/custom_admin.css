@@ -312,7 +312,7 @@ div.breadcrumbs {
 .custom-admin-header {
     background: #ffffff;
     border-bottom: 1px solid #eef2ff;
-    padding: 12px 0;
+    padding: 10px 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -320,14 +320,18 @@ div.breadcrumbs {
     height: var(--header-height);
     display: flex;
     align-items: center;
-    z-index: 90;
+    z-index: 110;
+    transition: height 180ms ease, padding 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
-.custom-admin-header .container { display:flex;align-items:center;justify-content:space-between; }
-.admin-logo { height:36px; margin-right:12px; }
+.custom-admin-header .container { display:flex;align-items:center;justify-content:space-between; gap:12px; }
+.admin-logo { height:40px; margin-right:12px; display:inline-block }
 .brand-link { display:flex;align-items:center;text-decoration:none;color:#111827 }
-.brand-title { font-weight:700; margin-left:6px; color:#111827 }
+.brand-title { font-weight:700; margin-left:8px; color:#111827; font-size:16px }
 .header-actions { display:flex;gap:12px;align-items:center }
 .header-actions .small-link { color:#6b7280; font-size:13px; text-decoration:none }
+
+/* Ensure generic #header does not conflict with custom header positioning */
+#header { position: static !important; top: auto !important; z-index: auto !important; }
 
 .admin-sidebar {
     width:var(--sidebar-width);
@@ -385,8 +389,8 @@ div.breadcrumbs {
 .cta-primary:hover { transform: translateY(-2px); box-shadow:0 8px 26px rgba(102,126,234,0.24); }
 
 /* Header avatar */
-.topbar-avatar { display:flex; align-items:center; gap:10px }
-.topbar-avatar .avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#f97316,#ef4444); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700 }
+.topbar-avatar { display:flex; align-items:center; gap:12px }
+.topbar-avatar .avatar { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#f97316,#ef4444); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px }
 
 /* Dashboard cards: keep consistent card styles */
 .stat-card, .table-container, .chart-card { background:white; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
@@ -399,10 +403,10 @@ div.breadcrumbs {
 }
 
 /* Content wrapper */
-.admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 24px); padding:28px; padding-top: calc(var(--header-height) + 20px); padding-bottom: calc(var(--footer-height) + 24px); min-height:calc(100vh - var(--header-height) - var(--footer-height)); background:#ffffff; z-index:10; }
+.admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 24px); padding:28px; padding-top: calc(var(--header-height) + 20px); padding-bottom: calc(var(--footer-height) + 24px); min-height:calc(100vh - var(--header-height) - var(--footer-height)); background:#f8fafc; z-index:10; transition: margin-left 200ms ease, padding 180ms ease; }
 
 /* Shift the entire main area to the right so content does not sit under the fixed sidebar */
-.admin-main-wrap { margin-left: calc(var(--sidebar-width) + 24px); transition: margin-left 200ms ease; }
+.admin-main-wrap { margin-left: calc(var(--sidebar-width) + 24px); transition: margin-left 200ms ease, transform 160ms ease; }
 
 /* Ensure internal admin content blocks do not apply additional left margins that cause overlap */
 main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .changelist, .changeform {
