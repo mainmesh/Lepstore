@@ -457,6 +457,14 @@ main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .
 /* Ensure admin content blocks always visible and do not get clipped under header */
 .admin-content-wrapper > * { scroll-margin-top: calc(var(--header-height) + 8px); }
 
+/* Prevent fixed header from covering action buttons or page chrome */
+body.admin-custom-body { padding-top: calc(var(--header-height) + 4px); }
+.object-tools, .breadcrumbs, .module-tools, .changeform h1, .change-list h1 { z-index: 20; position: relative; }
+.object-tools { margin-top: 6px; }
+
+/* Ensure the add-button area (object-tools) is visible above any subtle overlays */
+.object-tools .addlink, .object-tools a { position: relative; z-index: 30; }
+
 
 /* Make main admin content shift right to account for fixed sidebar */
 .dashboard #content, .changeform #content, .changelist #content { margin-left: calc(var(--sidebar-width) + 40px) !important; }
