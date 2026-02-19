@@ -331,14 +331,15 @@ div.breadcrumbs {
 
 .admin-sidebar {
     width:var(--sidebar-width);
-    position:sticky;
+    position:fixed;
+    left:0;
     top:var(--header-height);
+    height: calc(100vh - var(--header-height) - var(--footer-height));
     background:#0f172a;
     color:#fff;
     padding:18px;
     box-sizing:border-box;
     overflow:auto;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 /* Subtle scrollbar styling for sidebar when content overflows */
 .admin-sidebar::-webkit-scrollbar { width: 12px; }
@@ -398,10 +399,10 @@ div.breadcrumbs {
 }
 
 /* Content wrapper */
-.admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 40px); padding:28px; padding-top: calc(var(--header-height) + 20px); padding-bottom: calc(var(--footer-height) + 24px); min-height:calc(100vh - 160px); background:#f8fafc; z-index:10; }
+.admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 24px); padding:28px; padding-top: calc(var(--header-height) + 20px); padding-bottom: calc(var(--footer-height) + 24px); min-height:calc(100vh - var(--header-height) - var(--footer-height)); background:#ffffff; z-index:10; }
 
 /* Shift the entire main area to the right so content does not sit under the fixed sidebar */
-.admin-main-wrap { margin-left: calc(var(--sidebar-width) + 40px); transition: margin-left 200ms ease; }
+.admin-main-wrap { margin-left: calc(var(--sidebar-width) + 24px); transition: margin-left 200ms ease; }
 
 /* Ensure internal admin content blocks do not apply additional left margins that cause overlap */
 main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .changelist, .changeform {
@@ -410,7 +411,7 @@ main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .
 }
 
 /* Footer adjustments: make room when fixed */
-.custom-admin-footer { position:fixed; left:calc(var(--sidebar-width) + 40px); right:0; bottom:0; height:var(--footer-height); background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151; z-index:70; }
+.custom-admin-footer { position:fixed; left:calc(var(--sidebar-width) + 24px); right:0; bottom:0; height:var(--footer-height); background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151; z-index:70; }
 
 @media (max-width: 900px) {
     .admin-sidebar { position:relative; width:100%; top:0; bottom:auto; }
