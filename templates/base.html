@@ -68,6 +68,12 @@
     </style>
 
     {% block extra_css %}{% endblock %}
+    {% if not user.is_staff %}
+    <style>
+        /* Hide any admin links for non-staff visitors */
+        a[href^="/admin/"] { display: none !important; }
+    </style>
+    {% endif %}
 </head>
 <body class="bg-gray-50">
     <!-- Header -->

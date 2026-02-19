@@ -283,6 +283,16 @@ def contact(request):
     return render(request, 'store/contact.html', context)
 
 
+def shipping_info(request):
+    """Static shipping information page referenced from the site header."""
+    context = {
+        'title': 'Shipping Information',
+        'delivery_times': 'Local deliveries: 1-3 business days. International: 7-21 business days.',
+        'rates_note': 'Shipping rates vary by weight and destination. See individual product pages for estimates.',
+    }
+    return render(request, 'store/shipping_info.html', context)
+
+
 def health(request):
     """Lightweight health endpoint used by deploy checks."""
     return HttpResponse('OK', status=200)

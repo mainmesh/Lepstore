@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in | LepStore Admin</title>
+
+    
+    <link rel="stylesheet" href="/static/admin/css/base.css">
+    <link rel="stylesheet" href="/static/admin/css/responsive.css">
+
+    
+    <link rel="stylesheet" href="/static/admin/css/custom_admin.css">
+
+    
+    
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" type="text/css" href="/static/admin/css/custom_admin.css">
+     
+     <style>
+     /* Hide default admin chrome only on the login page for anonymous users */
+     #nav-sidebar, #toggle-nav-sidebar, .breadcrumbs, .skip-to-content-link, .sticky[aria-label="Sidebar"] { display: none !important; }
+     header#header { display: none !important; }
+     .main, main.content, #content, .colM { margin-left: 0 !important; padding-left: 0 !important; }
+     </style>
+     
+     
+
+    <style>
+    /* Simple centered login card for anonymous users */
+    .login-page {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 16px;
+        background: transparent;
+    }
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: #0b0b0b; /* match admin dark */
+        border-radius: 8px;
+        padding: 36px 28px;
+        box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+        color: #fff;
+    }
+    .login-card h1 { margin: 0 0 18px 0; font-weight:600; font-size:20px; color:#fff; }
+    .login-field { margin-bottom:14px; }
+    .login-field label { display:block; color:#cbd5e1; font-size:13px; margin-bottom:6px; }
+    .login-field input { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #2b2b2b; background:#eef6ff; }
+    .login-actions { margin-top:18px; display:flex; gap:10px; align-items:center; }
+    .login-button { background:#0f4561; color:#fff; padding:8px 14px; border-radius:8px; border:none; cursor:pointer; }
+    .login-note { color:#9ca3af; font-size:13px; margin-top:12px; }
+    @media (max-width:480px){ .login-card{padding:24px} }
+    </style>
+
+    
+</head>
+<body class="admin-custom-body">
+
+    
+    
+    
+    <!-- Minimal header for anonymous users (login page) -->
+    <header class="custom-admin-header minimal-login-header" style="padding:16px;background:transparent;">
+        <div class="container">
+            <a href="/admin/" class="brand-link" style="font-weight:700;color:#1f2937;text-decoration:none;">LepStore Admin</a>
+        </div>
+    </header>
+    
+
+
+    
+    
+    
+
+
+    <div class="admin-main-wrap">
+        <main id="content" class="admin-content">
+            
+<div class="login-page">
+    <div class="login-card">
+        <h1>Sign in to LepStore Admin</h1>
+        <form method="post" action="/admin/login/" novalidate>
+            <input type="hidden" name="csrfmiddlewaretoken" value="Nf0ylzlI3UQlqNT5qPSe5DnPsZlz0i9YB1xTDpYwS4zYOkpfomk4KJGXtyebN0T3">
+            
+
+            <div class="login-field">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+            </div>
+
+            <div class="login-field">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" autocomplete="current-password" required id="id_password">
+            </div>
+
+            
+                <input type="hidden" name="next" value="/admin/">
+            
+
+            <div class="login-actions">
+                <button type="submit" class="login-button">Log in</button>
+            </div>
+
+            <div class="login-note">Only administrators can access this area. Your session will expire after inactivity.</div>
+        </form>
+    </div>
+</div>
+
+        </main>
+    </div>
+
+    
+    
+    <footer class="custom-admin-footer">
+        <div class="container">&copy;  LepStore — Management Console</div>
+    </footer>
+
+
+    
+    <script src="/static/admin/js/core.js"></script>
+    <script src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+    
+</body>
+</html>

@@ -14,8 +14,9 @@ class LepAdminSite(AdminSite):
 
 
 # Create an instance to use in urls
-# Use a custom namespace `lep_admin` so the site uses the custom admin URL names
-lep_admin = LepAdminSite(name='lep_admin')
+# Register the custom admin under the standard `admin` namespace so built-in
+# admin template reverses (e.g. `admin:app_list`) resolve correctly.
+lep_admin = LepAdminSite(name='admin')
 
 
 # Ensure each app's admin module is imported so registrations are populated

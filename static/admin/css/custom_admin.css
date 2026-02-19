@@ -8,6 +8,9 @@
     --success: #10b981;
     --danger: #ef4444;
     --warning: #f59e0b;
+    --sidebar-width: 220px;
+    --header-height: 72px;
+    --footer-height: 56px;
     --info: #3b82f6;
 }
 
@@ -310,6 +313,14 @@ div.breadcrumbs {
     background: #ffffff;
     border-bottom: 1px solid #eef2ff;
     padding: 12px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    z-index: 90;
 }
 .custom-admin-header .container { display:flex;align-items:center;justify-content:space-between; }
 .admin-logo { height:36px; margin-right:12px; }
@@ -318,7 +329,20 @@ div.breadcrumbs {
 .header-actions { display:flex;gap:12px;align-items:center }
 .header-actions .small-link { color:#6b7280; font-size:13px; text-decoration:none }
 
-.admin-sidebar { width:220px; position:fixed; left:0; top:72px; bottom:40px; background:#0f172a; color:#fff; padding:18px; overflow:auto; }
+.admin-sidebar {
+    width:var(--sidebar-width);
+    position:sticky;
+    top:var(--header-height);
+    background:#0f172a;
+    color:#fff;
+    padding:18px;
+    box-sizing:border-box;
+    overflow:auto;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+/* Subtle scrollbar styling for sidebar when content overflows */
+.admin-sidebar::-webkit-scrollbar { width: 12px; }
+.admin-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius:8px; }
 .admin-sidebar nav ul { list-style:none; padding:0; margin:0 }
 .admin-sidebar nav li { margin-bottom:8px }
 .admin-sidebar nav a { color:#c7d2fe; text-decoration:none; display:block; padding:8px 10px; border-radius:6px }
@@ -338,11 +362,55 @@ div.breadcrumbs {
 .topbar-title { font-weight:700; color:#111827 }
 .topbar-actions .small-link { margin-left:10px; color:#6b7280; text-decoration:none }
 
+/* Gradient sidebar + icons */
+.admin-sidebar {
+    background: linear-gradient(180deg, #2b2b66 0%, #6b2b8f 100%);
+    color: #e6e6ff;
+}
+.admin-sidebar nav a { color: rgba(230,230,255,0.9); }
+.admin-sidebar nav a .icon { color: rgba(255,255,255,0.85); }
+.admin-sidebar nav a.active, .admin-sidebar nav a:hover {
+    background: linear-gradient(90deg, rgba(102,126,234,0.18) 0%, rgba(118,75,162,0.18) 100%);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(15,23,42,0.12);
+}
+.admin-sidebar .brand { display:flex; align-items:center; gap:10px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.04); margin-bottom:12px; }
+.admin-sidebar .brand img { height:36px; border-radius:8px; }
+.admin-sidebar .brand .brand-title { color:#fff; font-weight:700 }
+
+/* CTA button style (used on index/dashboard) */
+.cta-button { display:inline-block; padding:12px 24px; border-radius:10px; font-size:15px; font-weight:600; color:#fff; text-decoration:none; }
+.cta-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 6px 20px rgba(102,126,234,0.18); }
+.cta-primary:hover { transform: translateY(-2px); box-shadow:0 8px 26px rgba(102,126,234,0.24); }
+
+/* Header avatar */
+.topbar-avatar { display:flex; align-items:center; gap:10px }
+.topbar-avatar .avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#f97316,#ef4444); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700 }
+
+/* Dashboard cards: keep consistent card styles */
+.stat-card, .table-container, .chart-card { background:white; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+
+/* Responsive: collapse sidebar on small screens */
+@media (max-width: 900px) {
+    .admin-sidebar { position:relative; width:100%; min-height: auto; }
+    .admin-main-wrap { margin-left: 0 !important; }
+    .admin-content-wrapper { margin-left: 0 !important; padding:16px; }
+}
+
 /* Content wrapper */
-.admin-content-wrapper { margin-left: 240px; padding:28px; padding-bottom:56px; min-height:calc(100vh - 160px); background:#f8fafc }
+.admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 40px); padding:28px; padding-top: calc(var(--header-height) + 20px); padding-bottom: calc(var(--footer-height) + 24px); min-height:calc(100vh - 160px); background:#f8fafc; z-index:10; }
+
+/* Shift the entire main area to the right so content does not sit under the fixed sidebar */
+.admin-main-wrap { margin-left: calc(var(--sidebar-width) + 40px); transition: margin-left 200ms ease; }
+
+/* Ensure internal admin content blocks do not apply additional left margins that cause overlap */
+main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .changelist, .changeform {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
 
 /* Footer adjustments: make room when fixed */
-.custom-admin-footer { position:fixed; left:240px; right:0; bottom:0; background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151 }
+.custom-admin-footer { position:fixed; left:calc(var(--sidebar-width) + 40px); right:0; bottom:0; height:var(--footer-height); background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151; z-index:70; }
 
 @media (max-width: 900px) {
     .admin-sidebar { position:relative; width:100%; top:0; bottom:auto; }
@@ -351,9 +419,9 @@ div.breadcrumbs {
 }
 
 /* Make main admin content shift right to account for fixed sidebar */
-.dashboard #content, .changeform #content, .changelist #content { margin-left: 240px !important; }
+.dashboard #content, .changeform #content, .changelist #content { margin-left: calc(var(--sidebar-width) + 40px) !important; }
 
-.custom-admin-footer { position:fixed; left:220px; right:0; bottom:0; background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151 }
+.custom-admin-footer { position:fixed; left:calc(var(--sidebar-width) + 20px); right:0; bottom:0; background:#f8fafc; border-top:1px solid #e6edf6; padding:8px 16px; color:#374151 }
 
 @media (max-width: 900px) {
     .admin-sidebar { position:relative; width:100%; top:0; bottom:auto; }

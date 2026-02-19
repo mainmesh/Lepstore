@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Shipping Information — LepStore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Shipping Information</h1>
+    <p class="mb-2">{{ delivery_times }}</p>
+    <p class="mb-2">{{ rates_note }}</p>
+    <p class="mb-2">For questions about shipping, contact us at <a href="mailto:{{ email|default:'support@lepstore.example' }}">support@lepstore.example</a> or call {{ phone|default:'+254754102950' }}.</p>
+</div>
+{% endblock %}

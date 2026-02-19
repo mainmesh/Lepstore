@@ -4,20 +4,30 @@
 {% block extrastyle %}
         {{ block.super }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+    {% if not user.is_authenticated %}
+        {# Login page: keep the layout minimal. Rules are in CSS #}
+    {% endif %}
+    {% if user.is_authenticated and user.is_staff %}
+        {# Authenticated staff: layout handled by `custom_admin.css` #}
+    {% endif %}
 {% endblock %}
 
 {% block branding %}
+    {% if user.is_authenticated %}
     <header class="custom-admin-header">
         <div class="container">
-            <a href="{% url 'lep_admin:index' %}" class="brand-link">
+            <a href="{% url 'admin:index' %}" class="brand-link">
                 <img src="{% static 'images/logo-icon.svg' %}" alt="LepStore" class="admin-logo" />
                 <span class="brand-title">LepStore Admin</span>
             </a>
             <div class="header-actions">
-                <span class="user-name">{{ user.get_full_name|default:user.username }}</span>
-                <a href="{% url 'lep_admin:password_change' %}" class="small-link">Change password</a>
-                <a href="{% url 'accounts:logout' %}" class="small-link">Logout</a>
+                <div class="topbar-avatar">
+                    <div class="avatar">{{ user.username|slice:":1"|upper }}</div>
+                    <div style="text-align:right">
+                        <div style="font-weight:600;color:#111827">{{ user.get_full_name|default:user.username }}</div>
+                        <div class="small-link"><a href="{% url 'admin:password_change' %}">Change password</a> • <a href="{% url 'accounts:logout' %}">Logout</a></div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -26,47 +36,57 @@
             <button id="sidebar-toggle" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
             <div class="topbar-title">Administration</div>
             <div class="topbar-actions"> 
-                <a href="{% url 'lep_admin:password_change' %}" class="small-link">Change password</a>
+                <a href="{% url 'admin:password_change' %}" class="small-link">Change password</a>
                 <a href="{% url 'accounts:logout' %}" class="small-link">Logout</a>
             </div>
         </div>
     </div>
+    {% else %}
+    <!-- Minimal header for anonymous users (login page) -->
+    <header class="custom-admin-header minimal-login-header">
+        <div class="container">
+            <a href="{% url 'admin:index' %}" class="brand-link brand-login">LepStore Admin</a>
+        </div>
+    </header>
+    {% endif %}
 {% endblock %}
 
 {% block nav-global %}
+    {% if user.is_authenticated %}
     {% with rp=request.path %}
     <aside class="admin-sidebar">
         <nav>
             <ul>
                 <li class="nav-section">Main</li>
-                <li><a href="{% url 'lep_admin:index' %}" class="{% if '/admin/' == rp or rp|slice:':7' == '/admin/' %}active{% endif %}"><i class="fas fa-chart-line icon"></i> Dashboard</a></li>
+                <li><a href="{% url 'admin:index' %}" class="{% if '/admin/' == rp or rp|slice:':7' == '/admin/' %}active{% endif %}"><i class="fas fa-chart-line icon"></i> Dashboard</a></li>
 
                 <li class="nav-section">Catalog</li>
-                <li><a href="{% url 'lep_admin:store_product_changelist' %}" class="{% if '/admin/store/product' in rp %}active{% endif %}"><i class="fas fa-box icon"></i> Products</a></li>
-                <li><a href="{% url 'lep_admin:store_variant_changelist' %}" class="{% if '/admin/store/variant' in rp %}active{% endif %}"><i class="fas fa-tags icon"></i> Variants</a></li>
-                <li><a href="{% url 'lep_admin:store_category_changelist' %}" class="{% if '/admin/store/category' in rp %}active{% endif %}"><i class="fas fa-layer-group icon"></i> Categories</a></li>
-                <li><a href="{% url 'lep_admin:store_brand_changelist' %}" class="{% if '/admin/store/brand' in rp %}active{% endif %}"><i class="fas fa-copyright icon"></i> Brands</a></li>
-                <li><a href="{% url 'lep_admin:store_bundle_changelist' %}" class="{% if '/admin/store/bundle' in rp %}active{% endif %}"><i class="fas fa-box-open icon"></i> Bundles</a></li>
+                <li><a href="{% url 'admin:store_product_changelist' %}" class="{% if '/admin/store/product' in rp %}active{% endif %}"><i class="fas fa-box icon"></i> Products</a></li>
+                <li><a href="{% url 'admin:store_variant_changelist' %}" class="{% if '/admin/store/variant' in rp %}active{% endif %}"><i class="fas fa-tags icon"></i> Variants</a></li>
+                <li><a href="{% url 'admin:store_category_changelist' %}" class="{% if '/admin/store/category' in rp %}active{% endif %}"><i class="fas fa-layer-group icon"></i> Categories</a></li>
+                <li><a href="{% url 'admin:store_brand_changelist' %}" class="{% if '/admin/store/brand' in rp %}active{% endif %}"><i class="fas fa-copyright icon"></i> Brands</a></li>
+                <li><a href="{% url 'admin:store_bundle_changelist' %}" class="{% if '/admin/store/bundle' in rp %}active{% endif %}"><i class="fas fa-box-open icon"></i> Bundles</a></li>
 
                 <li class="nav-section">Orders</li>
-                <li><a href="{% url 'lep_admin:orders_order_changelist' %}" class="{% if '/admin/orders/order' in rp %}active{% endif %}"><i class="fas fa-receipt icon"></i> Orders</a></li>
-                <li><a href="{% url 'lep_admin:orders_shippingmethod_changelist' %}" class="{% if '/admin/orders/shippingmethod' in rp %}active{% endif %}"><i class="fas fa-shipping-fast icon"></i> Shipping Methods</a></li>
+                <li><a href="{% url 'admin:orders_order_changelist' %}" class="{% if '/admin/orders/order' in rp %}active{% endif %}"><i class="fas fa-receipt icon"></i> Orders</a></li>
+                <li><a href="{% url 'admin:orders_shippingmethod_changelist' %}" class="{% if '/admin/orders/shippingmethod' in rp %}active{% endif %}"><i class="fas fa-shipping-fast icon"></i> Shipping Methods</a></li>
 
                 <li class="nav-section">Customers</li>
-                <li><a href="{% url 'lep_admin:auth_user_changelist' %}" class="{% if '/admin/auth/user' in rp %}active{% endif %}"><i class="fas fa-users icon"></i> Customers</a></li>
+                <li><a href="{% url 'admin:auth_user_changelist' %}" class="{% if '/admin/auth/user' in rp %}active{% endif %}"><i class="fas fa-users icon"></i> Customers</a></li>
 
                 <li class="nav-section">Marketing</li>
-                <li><a href="{% url 'lep_admin:store_review_changelist' %}" class="{% if '/admin/store/review' in rp %}active{% endif %}"><i class="fas fa-star icon"></i> Reviews</a></li>
+                <li><a href="{% url 'admin:store_review_changelist' %}" class="{% if '/admin/store/review' in rp %}active{% endif %}"><i class="fas fa-star icon"></i> Reviews</a></li>
                 <li><a href="#" class=""><i class="fas fa-bullhorn icon"></i> Discounts</a></li>
 
                 <li class="nav-section">Reports & Settings</li>
-                <li><a href="{% url 'lep_admin:orders_order_changelist' %}?date=today" class=""><i class="fas fa-chart-pie icon"></i> Reports</a></li>
-                <li><a href="{% url 'lep_admin:auth_group_changelist' %}" class="{% if '/admin/auth/group' in rp %}active{% endif %}"><i class="fas fa-user-shield icon"></i> Roles</a></li>
-                <li><a href="{% url 'lep_admin:logout' %}"><i class="fas fa-sign-out-alt icon"></i> Logout</a></li>
+                <li><a href="{% url 'admin:orders_order_changelist' %}?date=today" class=""><i class="fas fa-chart-pie icon"></i> Reports</a></li>
+                <li><a href="{% url 'admin:auth_group_changelist' %}" class="{% if '/admin/auth/group' in rp %}active{% endif %}"><i class="fas fa-user-shield icon"></i> Roles</a></li>
+                <li><a href="{% url 'admin:logout' %}"><i class="fas fa-sign-out-alt icon"></i> Logout</a></li>
             </ul>
         </nav>
     </aside>
     {% endwith %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}

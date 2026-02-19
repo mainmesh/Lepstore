@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load static admin_extras i18n %}
+
+{% block title %}{% trans "Site administration" %}{% endblock %}
+
+{% block content %}
+    {% admin_quick_stats %}
+
+    <div style="margin-bottom: 20px;">
+        <a class="cta-button cta-primary" href="{% url 'admin_dashboard' %}">📊 View Analytics Dashboard</a>
+    </div>
+
+    {% if app_list %}
+        <div class="app-list">
+        {% for app in app_list %}
+            <div class="app-module" style="margin-bottom:18px;">
+                <h2 style="font-size:15px;margin:0 0 8px 0;color:#374151">{{ app.name }}</h2>
+                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px">
+                {% for model in app.models %}
+                    <li style="background:#fff;border-radius:8px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+                        <a href="{{ model.admin_url }}" style="color:#1f2937;text-decoration:none;font-weight:600">{{ model.name }}</a>
+                        <div style="font-size:12px;color:#6b7280">{{ model.admin_url|cut:request.get_host }}</div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>{% trans "No applications are registered." %}</p>
+    {% endif %}
+
+{% endblock %}

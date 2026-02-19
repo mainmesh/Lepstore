@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en-us" dir="ltr">
+<head>
+<title>Log in | LepStore Admin</title>
+<link rel="stylesheet" href="/static/admin/css/base.css">
+
+  <link rel="stylesheet" href="/static/admin/css/dark_mode.css">
+  <script src="/static/admin/js/theme.js" defer></script>
+
+
+  <link rel="stylesheet" href="/static/admin/css/nav_sidebar.css">
+  <script src="/static/admin/js/nav_sidebar.js" defer></script>
+
+
+    
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/custom_admin.css">
+
+    <style>
+    /* Simple centered login card for anonymous users */
+    .login-page {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 16px;
+        background: transparent;
+    }
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: #0b0b0b; /* match admin dark */
+        border-radius: 8px;
+        padding: 36px 28px;
+        box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+        color: #fff;
+    }
+    .login-card h1 { margin: 0 0 18px 0; font-weight:600; font-size:20px; color:#fff; }
+    .login-field { margin-bottom:14px; }
+    .login-field label { display:block; color:#cbd5e1; font-size:13px; margin-bottom:6px; }
+    .login-field input { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #2b2b2b; background:#eef6ff; }
+    .login-actions { margin-top:18px; display:flex; gap:10px; align-items:center; }
+    .login-button { background:#0f4561; color:#fff; padding:8px 14px; border-radius:8px; border:none; cursor:pointer; }
+    .login-note { color:#9ca3af; font-size:13px; margin-top:12px; }
+    @media (max-width:480px){ .login-card{padding:24px} }
+    </style>
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/admin/css/responsive.css">
+    
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+<body class=""
+  data-admin-utc-offset="10800">
+<a href="#content-start" class="skip-to-content-link">Skip to main content</a>
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    
+      <header id="header">
+        <div id="branding">
+        
+    
+    <!-- Minimal header for anonymous users (login page) -->
+    <header class="custom-admin-header minimal-login-header" style="padding:16px;background:transparent;">
+        <div class="container">
+            <a href="/admin/" class="brand-link" style="font-weight:700;color:#1f2937;text-decoration:none;">LepStore Admin</a>
+        </div>
+    </header>
+    
+
+        </div>
+        
+        
+        
+        
+    
+
+      </header>
+    
+    <!-- END Header -->
+    
+      <nav aria-label="Breadcrumbs">
+        
+          <div class="breadcrumbs">
+            <a href="/admin/">Home</a>
+             &rsaquo; Log in
+          </div>
+        
+      </nav>
+    
+    
+
+    <div class="main" id="main">
+      
+        
+          
+<button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="Toggle navigation"></button>
+<nav class="sticky" id="nav-sidebar" aria-label="Sidebar">
+  <input type="search" id="nav-filter"
+         placeholder="Start typing to filter…"
+         aria-label="Filter navigation items">
+  
+
+
+  <p>You don’t have permission to view or edit anything.</p>
+
+
+</nav>
+
+        
+      
+      <main id="content-start" class="content" tabindex="-1">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="colM">
+          
+          <h1>Log in</h1>
+          
+          
+<div class="login-page">
+    <div class="login-card">
+        <h1>Sign in to LepStore Admin</h1>
+        <form method="post" action="/admin/login/" novalidate>
+            <input type="hidden" name="csrfmiddlewaretoken" value="7qTAC4O5mLuuaFpRlvKZZvZ5ARQlIDWd5O9mTTm7o6svAUSSocrqGL6mliTYzXs5">
+            
+
+            <div class="login-field">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+            </div>
+
+            <div class="login-field">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" autocomplete="current-password" required id="id_password">
+            </div>
+
+            
+                <input type="hidden" name="next" value="/admin/">
+            
+
+            <div class="login-actions">
+                <button type="submit" class="login-button">Log in</button>
+            </div>
+
+            <div class="login-note">Only administrators can access this area. Your session will expire after inactivity.</div>
+        </form>
+    </div>
+</div>
+
+          
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        
+    <footer class="custom-admin-footer">
+        <div class="container">&copy;  LepStore — Management Console</div>
+    </footer>
+
+      </main>
+    </div>
+</div>
+<!-- END Container -->
+
+<!-- SVGs -->
+<svg xmlns="http://www.w3.org/2000/svg" class="base-svgs">
+  <symbol viewBox="0 0 24 24" width="1rem" height="1rem" id="icon-auto"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2V4a8 8 0 1 0 0 16z"/></symbol>
+  <symbol viewBox="0 0 24 24" width="1rem" height="1rem" id="icon-moon"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol>
+  <symbol viewBox="0 0 24 24" width="1rem" height="1rem" id="icon-sun"><path d="M0 0h24v24H0z" fill="currentColor"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol>
+</svg>
+<!-- END SVGs -->
+</body>
+</html>

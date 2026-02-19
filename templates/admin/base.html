@@ -1,0 +1,41 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% trans 'Django site admin' %}{% endblock %}</title>
+
+    {# Keep admin base CSS for form styling, but avoid loading the default nav/sidebar assets #}
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/responsive.css' %}">
+
+    {# Custom admin styles #}
+    <link rel="stylesheet" href="{% static 'admin/css/custom_admin.css' %}">
+
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+</head>
+<body class="admin-custom-body">
+
+    {# Branding block – provided by base_site.html #}
+    {% block branding %}{% endblock %}
+
+    {# Global nav/sidebar area – provided by base_site.html #}
+    {% block nav-global %}{% endblock %}
+
+    <div class="admin-main-wrap">
+        <main id="content" class="admin-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    {# Footer block #}
+    {% block footer %}{% endblock %}
+
+    {# Keep admin JS for form behaviour but do not include nav_sidebar.js #}
+    <script src="{% static 'admin/js/core.js' %}"></script>
+    <script src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
