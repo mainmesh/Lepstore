@@ -16,11 +16,11 @@ lep_admin.site_header = "LepStore Admin Dashboard"
 lep_admin.site_title = "LepStore Admin"
 lep_admin.index_title = "Welcome to LepStore Admin"
 urlpatterns = [
+    # Keep admin dashboard view reachable (must come before including admin urls)
+    path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     # Register the custom admin urls under the `lep_admin` namespace so
     # templates that reverse `lep_admin:...` will resolve correctly.
     path('admin/', include((lep_admin.urls[0], lep_admin.name), namespace=lep_admin.name)),
-    # Keep admin dashboard view reachable
-    path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     # Root-level contact alias (no namespace) to satisfy templates reversing 'contact'
     path('contact/', store_views.contact, name='contact'),
     path('', include('store.urls')),
