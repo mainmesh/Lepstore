@@ -423,6 +423,41 @@ main.admin-content, #content, .main, .colM, .module, .change-form, .dashboard, .
     .custom-admin-footer { left:0 }
 }
 
+/* Responsive refinement: tablets and phones */
+@media (max-width: 1200px) {
+    :root { --sidebar-width: 200px; --header-height: 64px; }
+    .admin-sidebar { width: var(--sidebar-width); }
+    .admin-content-wrapper { margin-left: calc(var(--sidebar-width) + 18px); padding:20px; }
+}
+
+@media (max-width: 900px) {
+    /* Collapse sidebar to a top-stacked block and ensure content flows below it */
+    .admin-sidebar { position:relative; width:100%; height:auto; left:0; top:0; padding:14px 12px; box-shadow:none; }
+    .admin-sidebar .brand { padding-bottom:8px; }
+    .admin-sidebar nav a { padding:10px 12px; }
+    .admin-content-wrapper { margin-left:0; padding-top: calc(var(--header-height) + 12px); }
+    .custom-admin-header { padding:12px 10px; height:56px }
+    .brand-title { display:inline-block; }
+    .sidebar-toggle { display:inline-flex; }
+}
+
+/* Small screens: ensure tables and changelists are scrollable and inputs expand */
+@media (max-width: 760px) {
+    .module table, #result_list, .change-list table, .changelist table { display:block; width:100%; overflow:auto; -webkit-overflow-scrolling:touch; }
+    .module table thead, .changelist thead { display:table-header-group; }
+    .admin-quick-stats { gap:10px; }
+    .cta-button { font-size:14px; padding:10px 14px }
+    input[type="text"], input[type="search"], .searchbar input { width:100%; box-sizing:border-box; }
+}
+
+/* General smoothing for sizes and spacing */
+.admin-sidebar nav a, .admin-sidebar .nav-section { transition: background 140ms ease, transform 140ms ease; }
+.admin-main-wrap, .admin-content-wrapper, .custom-admin-header, .custom-admin-footer { transition: all 160ms ease; }
+
+/* Ensure admin content blocks always visible and do not get clipped under header */
+.admin-content-wrapper > * { scroll-margin-top: calc(var(--header-height) + 8px); }
+
+
 /* Make main admin content shift right to account for fixed sidebar */
 .dashboard #content, .changeform #content, .changelist #content { margin-left: calc(var(--sidebar-width) + 40px) !important; }
 
