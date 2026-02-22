@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in | LepStore Admin</title>
+
+    
+    <link rel="stylesheet" href="/static/admin/css/base.css">
+    <link rel="stylesheet" href="/static/admin/css/responsive.css">
+
+    
+    <link rel="stylesheet" href="/static/admin/css/custom_admin.css">
+
+    
+    
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+        
+    
+    
+
+
+    
+</head>
+<body class="admin-custom-body">
+
+    
+    
+    
+    <!-- Minimal header for anonymous users (login page) -->
+    <header class="custom-admin-header minimal-login-header">
+        <div class="container">
+            <a href="/admin/" class="brand-link brand-login">LepStore Admin</a>
+        </div>
+    </header>
+    
+
+
+    
+    
+    
+
+
+    <div class="admin-main-wrap">
+        <main id="content" class="admin-content">
+            
+<div class="login-page">
+    <div class="login-card">
+        <h1>Sign in to LepStore Admin</h1>
+        <form method="post" action="/admin/login/" novalidate>
+            <input type="hidden" name="csrfmiddlewaretoken" value="px7SzE3Qm4hmgaciQQ3EXBdYGa1ixxCkYnmxnrhJkpfWh4sY9kyXy7qGpGlvitWy">
+            
+
+            <div class="login-field">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+            </div>
+
+            <div class="login-field">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" autocomplete="current-password" required id="id_password">
+            </div>
+
+            
+                <input type="hidden" name="next" value="/admin/store/product/add/">
+            
+
+            <div class="login-actions">
+                <button type="submit" class="login-button">Log in</button>
+            </div>
+
+            <div class="login-note">Only administrators can access this area. Your session will expire after inactivity.</div>
+        </form>
+    </div>
+</div>
+
+        </main>
+    </div>
+
+    
+    
+    <footer class="custom-admin-footer">
+        <div class="container">&copy;  LepStore — Management Console</div>
+    </footer>
+
+
+    
+    <script src="/static/admin/js/core.js"></script>
+    <script src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+    
+</body>
+</html>

@@ -53,8 +53,9 @@
         .site-logo{display:block!important;position:relative;z-index:9999;max-height:48px;}
         /* Mobile: hide the graphical logo so only the name remains */
         @media (max-width:640px){
+            /* Hide the large inline SVG on small screens, show the smaller fallback image */
             .site-logo{display:none!important}
-            .site-logo-fallback{display:none!important}
+            .site-logo-fallback{display:inline-block!important}
             .site-title{font-size:18px;color:#b45309;font-weight:700}
         }
         /* Desktop/title styling */

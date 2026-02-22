@@ -525,3 +525,15 @@ body.admin-custom-body { padding-top: calc(var(--header-height) + 4px); }
     .login #container { padding: 12px !important; }
     .login img { max-width: 96px !important; height: auto !important; }
 }
+
+/* Ensure submit/save buttons are visible above the fixed custom footer on change-form pages */
+.changeform .submit-row, .submit-row {
+    position: relative;
+    z-index: 200;
+    margin-bottom: calc(var(--footer-height) + 20px) !important;
+}
+
+/* Give extra bottom padding to change forms so buttons are not covered when viewport is small */
+.changeform form, .changeform .module, .changeform #content {
+    padding-bottom: calc(var(--footer-height) + 48px) !important;
+}
