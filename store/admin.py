@@ -7,7 +7,7 @@ from .models import Category, Brand, Product, ProductImage, Review, Bundle, Vari
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 1
+    extra = 0
     fields = ['image', 'alt_text', 'is_primary', 'order']
 
 
@@ -56,6 +56,33 @@ class CategoryAdmin(admin.ModelAdmin):
         self.message_user(request, f'{updated} categories deactivated.')
     deactivate_categories.short_description = 'Deactivate selected categories'
 
+    # Quick-add view: /admin/store/category/quick_add/
+    def get_urls(self):
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path('quick_add/', self.admin_site.admin_view(self.quick_add_view), name='store_category_quick_add'),
+        ]
+        return custom_urls + urls
+
+    def quick_add_view(self, request):
+        from django.shortcuts import render, redirect
+        from django import forms
+        class QuickCategoryForm(forms.ModelForm):
+            class Meta:
+                model = Category
+                fields = ['name', 'slug']
+
+        if request.method == 'POST':
+            form = QuickCategoryForm(request.POST)
+            if form.is_valid():
+                obj = form.save()
+                return redirect('admin:store_category_change', obj.id)
+        else:
+            form = QuickCategoryForm()
+
+        return render(request, 'admin/quick_add.html', {'form': form, 'title': 'Quick add category', 'opts': self.model._meta})
+
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
@@ -76,6 +103,33 @@ class BrandAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="50" height="50" style="object-fit: contain; border-radius: 5px;" />', obj.logo.url)
         return '-'
     brand_logo.short_description = 'Logo'
+
+    # Quick-add view: /admin/store/brand/quick_add/
+    def get_urls(self):
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path('quick_add/', self.admin_site.admin_view(self.quick_add_view), name='store_brand_quick_add'),
+        ]
+        return custom_urls + urls
+
+    def quick_add_view(self, request):
+        from django.shortcuts import render, redirect
+        from django import forms
+        class QuickBrandForm(forms.ModelForm):
+            class Meta:
+                model = Brand
+                fields = ['name', 'slug']
+
+        if request.method == 'POST':
+            form = QuickBrandForm(request.POST)
+            if form.is_valid():
+                obj = form.save()
+                return redirect('admin:store_brand_change', obj.id)
+        else:
+            form = QuickBrandForm()
+
+        return render(request, 'admin/quick_add.html', {'form': form, 'title': 'Quick add brand', 'opts': self.model._meta})
 
 
 @admin.register(Product)
@@ -175,6 +229,34 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('is_featured', 'is_new', 'is_top_rated')
         }),
     )
+
+    # Quick-add view: /admin/store/product/quick_add/
+    def get_urls(self):
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path('quick_add/', self.admin_site.admin_view(self.quick_add_view), name='store_product_quick_add'),
+        ]
+        return custom_urls + urls
+
+    def quick_add_view(self, request):
+        from django.shortcuts import render, redirect
+        from django import forms
+
+        class QuickProductForm(forms.ModelForm):
+            class Meta:
+                model = Product
+                fields = ['category', 'brand', 'name', 'price', 'stock', 'is_available']
+
+        if request.method == 'POST':
+            form = QuickProductForm(request.POST)
+            if form.is_valid():
+                obj = form.save()
+                return redirect('admin:store_product_change', obj.id)
+        else:
+            form = QuickProductForm()
+
+        return render(request, 'admin/quick_add.html', {'form': form, 'title': 'Quick add product', 'opts': self.model._meta})
 
 
 @admin.register(ProductImage)

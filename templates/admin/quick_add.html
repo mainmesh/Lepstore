@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ title }}</h1>
+    <div class="module">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-row">
+                {{ form.as_p }}
+            </div>
+            <div class="submit-row">
+                <input type="submit" value="Save" class="default" name="_save" />
+                <a href="{{ request.META.HTTP_REFERER|default:admin_url('index') }}" class="button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
