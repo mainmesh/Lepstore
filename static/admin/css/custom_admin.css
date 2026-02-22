@@ -528,12 +528,19 @@ body.admin-custom-body { padding-top: calc(var(--header-height) + 4px); }
 
 /* Ensure submit/save buttons are visible above the fixed custom footer on change-form pages */
 .changeform .submit-row, .submit-row {
-    position: relative;
-    z-index: 200;
-    margin-bottom: calc(var(--footer-height) + 20px) !important;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: calc(var(--footer-height) + 12px);
+    z-index: 9999;
+    background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 0 !important;
+    display: flex !important;
+    gap: 8px;
 }
 
-/* Give extra bottom padding to change forms so buttons are not covered when viewport is small */
+/* Ensure form content has extra bottom space so sticky submit-row doesn't overlap fields */
 .changeform form, .changeform .module, .changeform #content {
-    padding-bottom: calc(var(--footer-height) + 48px) !important;
+    padding-bottom: calc(var(--footer-height) + 80px) !important;
 }
